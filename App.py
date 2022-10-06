@@ -30,8 +30,8 @@ while(leaveGame==False):
 
     #start
     if (menuAns=="S"):
-        
-        verify="N"
+ #The multiline comment/string is to quicken debugging and testing
+        """verify="N"
         #PLAYER NAME
         while(verify=="N"):
             playerName=input("WHAT IS YOUR NAME?: ").capitalize()
@@ -64,13 +64,13 @@ while(leaveGame==False):
                 roleSelected="N"
 
         input(Fore.GREEN+"Press the ENTER KEY to continue: ")#to skip option for now
-
+"""
         #FORCING PLAYERNAME=TESTER_NAME
-        #playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
+        playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
 
-        #     #FORCING ROUGE AS PARTNER
-        # gMod.RougeAccess().selectRouge() 
-        # print(gMod.RougeAccess().getRoleStatus())
+            #FORCING ROUGE AS PARTNER
+        gMod.RougeAccess().selectRouge() 
+        print(gMod.RougeAccess().getRoleStatus())
 
         #     #FORCING SCOUT AS PARTNER
         # gMod.ScoutAccess().selectScout()
@@ -142,7 +142,26 @@ while(leaveGame==False):
             else:
                 print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
 
-        input("PRESS ENTER TO CONTINUE TESTING, DEV!")
+        #Intro for lv2
+        print(breakLine+"Around your team, the perimeter begin to disappear into the ground one by one. You cling to the wall, as the growing void nears. \nYou yelp, yet gravity does not seem to greet you. The growing void strangely stops a couple meters from where you stand. \nAnother tremble, as the couple meters of land begin to descend like an old elevator.\nAs the sun goes further away, the platform continues downwards and a rancid smell begins to grow. You inch away from the wall \nto look off the ledge, causing you to scream in horror. A skull was inches away from your face, as others seem to \nglare in envy at your safe descent. The rotting smell of death seems to grow, as the platform stops in a rumble.")
+
+        #specialized dialogue (for character growth)
+        if (gMod.RougeAccess().getRoleStatus()):
+            print("\nROUGE happily hops off the platform, eager to see solid ground."+Fore.RED+"\nROUGE: Whew... That almost felt like forever! So, where are we...?"+Fore.RESET+" They feel their waist coat and \'A-ha!\' at a lighter."+line)
+        else:
+            print("\nSCOUT cautiously walks off the platform. You hear them sifting through their large backpack. Warmth welcomes you.\n"+Fore.CYAN+"SCOUT: It\'s safe."+Fore.RESET+" They tilt their head towards the tunnel."+line)
+
+        print("The moment you step off the platform, it begins to ascend. You reach out, as if it will respond. \nSlowly, the rest of the cave is shrouded in darkness. With caution, you both walk into\nthe tunnel. Ominously, the cavern is coated with dried blood, skeletons, and chewed up clothes from various eras.\nStrangely, there is an especially large pile of skeletons near a golden Y-shaped sigil. Curious, you walk towards \nit, as the walls are painted in vibrant colour and rich history. \nQuickly you take out your camera for later analysis.\n"+playerName+": This is Yushin\'s unrecorded history! I-i-- Did they use paints? \nWow, I wish I can collect samples!! Oh, I wonder... \n"+Fore.RESET+"You continue to rant and take pictures, as your team goes deeper into the cavern.\n")
+
+        #lvl 2
+        print("For hours, your team sees broken bridges to obvious tripwires. You even used a grappling hook, but it broke on the \nlast swing... Ahead, you barely see a worn out tightrope with rusted spears under it.")
+        #specialized dialogue
+        if (gMod.RougeAccess().getRoleStatus()):
+            print(Fore.RED+"\nROUGE: Ah! I wish we still had our grappling hook..."+Fore.RESET+line)
+        else:
+            print("\nSCOUT stays silent and mutters a \'huh...\' Strangely, instead of looking forward, your partner follows a white line towards a wall."+Fore.CYAN+"\nSCOUT: Wait a moment... Is this?"+Fore.RESET+line)
+    
+
 
     #how to
     elif (menuAns=="H"):

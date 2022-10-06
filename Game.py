@@ -44,7 +44,6 @@ class game():
         print("testing testing")
 
 
-
     def RougeAccess(self):
         return rMod
 
