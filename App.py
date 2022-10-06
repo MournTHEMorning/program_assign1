@@ -1,4 +1,5 @@
-"""ALL USER INTERACTIVITY. This connects to all files (Rouge.py and Scout.py, App.py uses the file) This uses all variables, methods, and classes related """
+"""ALL USER INTERACTIVITY. This connects to all files (Rouge.py and Scout.py, App.py uses the file) 
+This uses all variables, methods, and classes related """
 from ast import For
 import colorama, Game
 from colorama import Fore
@@ -21,6 +22,7 @@ print("\n                       [TREASURE]")
 
 #USED TO TEST GAME WITHOUT MENU
 menuAns="S"
+
 while(leaveGame==False):
     print(Fore.RESET+"\n\nSTART"+Fore.GREEN+" [S]"+Fore.WHITE+"\nHOW TO PLAY"+Fore.GREEN+" [H]"+Fore.WHITE+"\nPARTNERS: BIO"+Fore.GREEN+" [P]"+Fore.WHITE+"\nEXIT GAME"+Fore.GREEN+" [E]")
     #menuAns = input(Fore.GREEN+"**PLEASE TYPE HERE: "+Fore.RESET).upper()
@@ -28,12 +30,12 @@ while(leaveGame==False):
 
     #start
     if (menuAns=="S"):
-        """
+        
         verify="N"
         #PLAYER NAME
         while(verify=="N"):
             playerName=input("WHAT IS YOUR NAME?: ").capitalize()
-            playerName=(Fore.GREEN+playerName+Fore.RESET)
+            playerName=(Fore.GREEN+playerName)
             print("Your name is: "+playerName+". Correct?")
             verify  = input(Fore.GREEN+"**TYPE YES[Y] or NO[N]: "+Fore.RESET).upper()
             print(line)
@@ -52,7 +54,7 @@ while(leaveGame==False):
                         gMod.RougeAccess().selectRouge()
                         print(Fore.RED+"\nROUGE: "+playerName+Fore.RED+" is it? I\'m actually quite surprised that I can tag along! It will be my honour to find this cool treasure! \n...What are we waiting for? Let\'s go!")
                     else:
-                        gMod.RougeAccess().selectScout()
+                        gMod.ScoutAccess().selectScout()
                         print(Fore.CYAN+"\nSCOUT: "+playerName+Fore.CYAN+" correct? ...alright. I will meet you there.")
                 else:
                     roleSelected="N"
@@ -61,18 +63,21 @@ while(leaveGame==False):
                 print("\nPlease select a proper partner!"+line)
                 roleSelected="N"
 
-        input(Fore.GREEN+"Press the ENTER KEY to continue: ")""" #to skip option for now
+        input(Fore.GREEN+"Press the ENTER KEY to continue: ")#to skip option for now
 
         #FORCING PLAYERNAME=TESTER_NAME
-        playerName="Tester_Name"
+        #playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
 
         #     #FORCING ROUGE AS PARTNER
         # gMod.RougeAccess().selectRouge() 
         # print(gMod.RougeAccess().getRoleStatus())
 
-            #FORCING SCOUT AS PARTNER
-        gMod.ScoutAccess().selectScout()
-        print(gMod.ScoutAccess().getRoleStatus())
+        #     #FORCING SCOUT AS PARTNER
+        # gMod.ScoutAccess().selectScout()
+        # print(gMod.ScoutAccess().getRoleStatus())
+
+        #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
+
         #intro
         print(line+Fore.RESET+"Many interviews with surviving explorers, a plane flight, gut-wrenching boat ride, and four hour hike later: Your team finally reached the ruins.\nMarble-coloured spires attempt to hide behind dense foliage of vines, trees, and weeds. \nThe cracked, white tiles once were as pristine of the spires, but one can tell that this was centuries ago.")
         
@@ -83,6 +88,7 @@ while(leaveGame==False):
             print(Fore.CYAN+"\nSCOUT is already several feet away, searching for clues...")
         rollAgain=True
 
+        #rolling for lv1
         while(rollAgain):
             rollInput=input(line+Fore.GREEN+"ROLL for INTEL![Input R]: ").upper()
             diceResult=gMod.dice(rollInput)
@@ -106,34 +112,37 @@ while(leaveGame==False):
 
         print("YOU AND YOUR PARTNER ROLLED A", bonus)
 
+        #lv1 results
         if(gMod.winLoss(bonus)==0):
-            print("You recieved: a CRIT LOSS(3 and under)!")
-            print("Your team scour the grounds for clues. Unfortunately, \nthe long travel has made the team exhausted, not recalling any of the clues... \nDesperate, you check a familiar vine...")
+            print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
+            print("Your team scour the grounds for clues. Unfortunately, the long travel has \nmade the team exhausted, not recalling any of the clues... Desperate, you check a familiar vine...\n")
             if(gMod.RougeAccess().getRoleStatus()):
-                print("Their open expression says it all."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+"They weakly\nslap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
+                print("Their open expression says it all."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+" They weakly\nslap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
             else:
                 print("They pace from one end to another, repeating their steps for the tenth time now. You wave them over to brainstorm,\nbut they wave you off and continue mumbling. Exhausted, you march towards them instead. Near SCOUT, you hear a click and the ruins seem to tremble.")
-        
-        
         elif(gMod.winLoss(bonus)==1):
-            print("You recieved: a LOSS(4-6)!")
-            print("Your team scour the grounds for clues. The interviews \nare hazy, but you both recall the Yushin\'s insignia-- a gold and white \nV-shape, as you recall -- would lead to a contraption.")
+            print("You recieved:"+Fore.YELLOW+"a LOSS(4-6)!"+line)
+            print("Your team scour the grounds for clues. The interviews nare hazy, but you both recall the Yushin\'s insignia-- a gold and white \nV-shape, as you recall -- would lead to a contraption.\n")
             if(gMod.RougeAccess().getRoleStatus()):
-                print(Fore.Red+"ROUGE: Ugh! Where is that thing?\n"+Fore.GREEN+playerName+": You mean, insignia?\n"+Fore.RED+"ROUGE: Yes! That thing! Where is it??"+Fore.RESET+"This was as convenient as a child asking if they were there yet, you thought as they stepped on a yellow stain-- wait a moment.\n"+Fore.GREEN+playerName+": Wait a moment! The stain on the tiles! Gold and white, leading...\nQuickly, they dash off towards a random pile of vines.\n\nYou both looked in the insignia\'s general area for hours. ROUGE shoots you an irritated look."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+" They weakly slap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
+                print(Fore.RED+"ROUGE: Ugh! Where is that thing?\n"+playerName+": You mean, insignia?\n"+Fore.RED+"ROUGE: Yes! That thing! Where is it??"+Fore.RESET+" This was as convenient as a child asking if they were there yet, you thought. \nThey stepped on a yellow stain-- wait a moment.\n"+playerName+": Wait a moment! The stain on the tiles! Gold and white, leading..."+Fore.RESET+"\nQuickly, they dash off towards a random pile of vines.\n\nYou both looked in the insignia\'s general area for hours. ROUGE shoots you an irritated look."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+" They weakly slap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
             else:
-                print("SCOUT took a snack break, leaving you to continue searching. Looking high and low, you sigh.\nSCOUT: Anything? You shake your head, as SCOUT walks ahead. They stepped on a yellow stain-- wait a moment.\n"+playerName+": Wait! The stain on the tiles! Gold and white, like-- However, SCOUT has already left, already cluing in. \n\nYou both looked in the insignia\'s general area for hours, but no leads. SCOUT paces from one end to another, repeating their steps for the ninth time now. In the middle of their tenth pace, they jog over to a familiar wall. Curious, you follow, as the ruins seem to tremble.")
-        
-        
+                print("SCOUT took a snack break, leaving you to continue searching. Looking high and low, you sigh.\n"+Fore.CYAN+"SCOUT: Anything? "+Fore.RESET+"You shake your head, as SCOUT walks ahead. They stepped on a yellow stain-- wait a moment.\n"+playerName+": Wait! The stain on the tiles! Gold and white, like-- "+Fore.RESET+"However, SCOUT has already left, already cluing in. \n\nYou both looked in the insignia\'s general area for hours, but no leads. SCOUT paces from one end to another, repeating their steps for the ninth time now.\nIn the middle of their tenth pace, they jog over to a familiar wall. Curious, you follow, as the ruins seem to tremble.") 
         elif(gMod.winLoss(bonus)==2):
-            print("You recieved: a WIN(7-11)!")
-            print("Your team scour the grounds for clues. Fortunately, you \nboth recall the Yushin\'s insignia-- a gold and white Y-like shape. \nThe contraption would be to the Northern side of the insignia. ")
+            print("You recieved: "+Fore.YELLOW+"a WIN(7-11)!"+line)
+            print("Your team scour the grounds for clues. Fortunately, you \nboth recall the Yushin\'s insignia-- a gold and white Y-like shape. \nThe contraption would be to the Northern side of the insignia. \n")
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(Fore.RED+"ROUGE: The insignia must be North, right? "+Fore.RESET+"They rush ahead and begin climbing the ruins, walking on some yellow-stained \ntiles in the process. Wondering if it is a trick of the light, you call to ROUGE.\n"+playerName+": ROUGE! Does this look like the insignia? "+Fore.RESET+"You jump on the golden tiles. ROUGE responds with a loud \'Wa-hoo!\'\nWith everything going to plan, you head Northbound from the insignia. Every wall looks similar, but there is a slight \nshine of gold underneath some of the greenery. With hesitance, you begin leaning into the tile, before ROUGE \ncrashes into you."+Fore.RED+"\nROUGE: What are we looking-- "+Fore.RESET+" The ruins seem to tremble.")
+            else:
+                print("SCOUT took a snack break and a nap to recharge from the long journey.\n"+playerName+": I suppose I do this alone... "+Fore.RESET+"You sigh, as you begin with the lower level. No sign. \nClimbing up the vines, you notice a faded, golden Y-like shape. Down below, you see SCOUT near the insignia. \nBy the time you climb down, they have marched to the right side of the ruins.\n"+playerName+": Hey! I found the-- "+Fore.RESET+"Near SCOUT, you hear a click and the ruins seem to tremble.")
         elif(gMod.winLoss(bonus)==3):
-            print("You recieved: a CRIT WIN(12 and above)!")
-            print("Your team scour the grounds for clues. According to the \nsurviving adventurers, you both recall the Yushin\'s insignia-- a gold and \nwhite Y-like shape. The contraption is to the North of the insignia." )
+            print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+line)
+            print("Your team scour the grounds for clues. According to the surviving adventurers, \nthe Yushin\'s insignia is a gold and white Y-like shape. The contraption is to the North of the insignia.\n")
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(Fore.RED+"ROUGE: Now where is that insignia..."+Fore.RESET+"You spot some faded, golden tiles.\n"+playerName+": Would that be it? "+Fore.RESET+"ROUGE responds with a loud \'Wa-hoo!\'With everything going to plan, you head Northbound from the insignia. Every wall \nlooks similar, but there is a slight shine of gold underneath some of the greenery.\n"+Fore.RED+"ROUGE: That's gotta be it! ...race you? "+Fore.RESET+"You two race over to the golden tile. Unfortunately, they won, but you worry more over the trembling ruins.")
+            else:
+                print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
 
-        
-
-        
+        input("PRESS ENTER TO CONTINUE TESTING, DEV!")
 
     #how to
     elif (menuAns=="H"):

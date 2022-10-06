@@ -1,4 +1,5 @@
-"""""GAME LOGIC. This connects to all files (Rouge.py and Scout.py, App.py uses the file) This uses all variables, methods, and classes related """
+"""GAME LOGIC. This connects to all files (Rouge.py and Scout.py, App.py uses the file) 
+This uses all variables, methods, and classes related """
 import random, Rouge, Scout, colorama
 rMod=Rouge.rouge()
 sMod=Scout.scout()
@@ -36,6 +37,13 @@ class game():
       #you'll have to check this later :) when the game is done
       score.append(winOrLoss)
       return winOrLoss
+    
+    #looking at score to see if player won or lost the whole game
+    def assessScore(self):
+      for i in range(len(score)):
+        print("testing testing")
+
+
 
     def RougeAccess(self):
         return rMod
