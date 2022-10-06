@@ -157,10 +157,33 @@ while(leaveGame==False):
         print("For hours, your team sees broken bridges to obvious tripwires. You even used a grappling hook, but it broke on the \nlast swing... Ahead, you barely see a worn out tightrope with rusted spears under it.")
         #specialized dialogue
         if (gMod.RougeAccess().getRoleStatus()):
-            print(Fore.RED+"\nROUGE: Ah! I wish we still had our grappling hook..."+Fore.RESET+line)
+            print(Fore.RED+"\nROUGE: Ah! I wish we still had our grappling hook..."+Fore.RESET)
         else:
-            print("\nSCOUT stays silent and mutters a \'huh...\' Strangely, instead of looking forward, your partner follows a white line towards a wall."+Fore.CYAN+"\nSCOUT: Wait a moment... Is this?"+Fore.RESET+line)
-    
+            print("\nSCOUT stays silent and mutters a \'huh...\' Strangely, instead of looking forward, your partner follows a white line towards a wall."+Fore.CYAN+"\nSCOUT: Wait a moment... Is this?"+Fore.RESET)
+        rollAgain=True
+
+        #rolling for lv2, same as above
+        while(rollAgain):
+            if(gMod.RougeAccess().getRoleStatus()):
+                rollInput=input(breakLine+Fore.GREEN+"ROLL for PRIMITIVE![Input R]: ").upper()
+            else:
+                rollInput=input(line+Fore.GREEN+"\nSCOUT\'s SPECIALITY [HACK] IS IN EFFECT!\nROLL to aid![Input R]: ").upper()
+
+            diceResult=gMod.dice(rollInput)
+            rollAgain=False
+
+            if(type(diceResult)==int):
+                print("YOU ROLLED:"+Fore.RESET,diceResult)
+            else:
+                print("Please roll again!")
+                rollAgain=True
+
+            #adding ROUGE: PRI bonus
+        if(gMod.RougeAccess().getRoleStatus()==True):
+            print(Fore.RED+"PARTNER\'S BONUS(PPRI):"+Fore.RESET, gMod.RougeAccess().getPRI())
+            bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getPRI())
+
+            #adding SCOUT: HACK bonus
 
 
     #how to
