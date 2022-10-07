@@ -55,3 +55,12 @@ print(line)
 print(Fore.RED+"ROUGE: Glad I\'m not the only one with pressure plate problems! You almost got smashed by that rock, friend!"+Fore.RESET)
 print(line)
 print(Fore.CYAN+"SCOUT: ...please be careful. "+Fore.RESET+"They look at you with a silent worry.")
+
+#intro for puzzle in lvl2b
+print("You look ahead to see cobblestone flooring with a stalactite standing where you once stood.\n"+playerName+": Just like the poison darts... but why does this look-- OH! "+Fore.RESET+"Quickly, you scour your camera roll for... that one! \nYou wave over your partner, showing one of the murals from the entrance. The photo shows a painted version of the room with a\nred line, gesturing the way through the door is through the path. \n\nIn short, by following the path, the team will pass safely, or else...")
+
+#specialized dialogue
+
+print(Fore.RED+"ROUGE: So?? What are we waiting for? Let\'s go!"+Fore.RESET+"They look at the cobblestone floor and smiles.\n"+Fore.RED+"ROUGE: This actually reminds me of a routine I did one time! Wa-hoo! Takes me back"+Fore.RESET)
+
+print("SCOUT looks ahead with an unreadable expression.")
