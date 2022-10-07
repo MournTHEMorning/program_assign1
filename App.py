@@ -69,12 +69,12 @@ while(leaveGame==False):
         playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
 
             #FORCING ROUGE AS PARTNER
-        gMod.RougeAccess().selectRouge() 
-        print(gMod.RougeAccess().getRoleStatus())
+        # gMod.RougeAccess().selectRouge() 
+        # print(gMod.RougeAccess().getRoleStatus())
 
         #     #FORCING SCOUT AS PARTNER
-        # gMod.ScoutAccess().selectScout()
-        # print(gMod.ScoutAccess().getRoleStatus())
+        gMod.ScoutAccess().selectScout()
+        print(gMod.ScoutAccess().getRoleStatus())
 
         #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
 
@@ -167,7 +167,7 @@ while(leaveGame==False):
             if(gMod.RougeAccess().getRoleStatus()):
                 rollInput=input(breakLine+Fore.GREEN+"ROLL for PRIMITIVE![Input R]: ").upper()
             else:
-                rollInput=input(line+Fore.GREEN+"\nSCOUT\'s SPECIALITY [HACK] IS IN EFFECT!\nROLL to aid![Input R]: ").upper()
+                rollInput=input(line+Fore.GREEN+"\nSCOUT\'s SPECIALITY [HACK] IS IN EFFECT!\nROLL to support them![Input R]: ").upper()
 
             diceResult=gMod.dice(rollInput)
             rollAgain=False
@@ -180,10 +180,13 @@ while(leaveGame==False):
 
             #adding ROUGE: PRI bonus
         if(gMod.RougeAccess().getRoleStatus()==True):
-            print(Fore.RED+"PARTNER\'S BONUS(PPRI):"+Fore.RESET, gMod.RougeAccess().getPRI())
+            print(Fore.RED+"PARTNER\'S BONUS(PRI):"+Fore.RESET, gMod.RougeAccess().getPRI())
             bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getPRI())
 
             #adding SCOUT: HACK bonus
+        else:
+            print(Fore.CYAN+"PARTNER\'S BONUS(HACK):"+Fore.RESET, gMod.ScoutAccess().getSpecial())
+            bonus=gMod.traitBonus(diceResult,gMod.ScoutAccess().getSpecial())
 
 
     #how to
