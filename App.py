@@ -69,12 +69,12 @@ while(leaveGame==False):
         playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
 
             #FORCING ROUGE AS PARTNER
-        gMod.RougeAccess().selectRouge() 
-        print(gMod.RougeAccess().getRoleStatus())
+        # gMod.RougeAccess().selectRouge() 
+        # print(gMod.RougeAccess().getRoleStatus())
 
         #     #FORCING SCOUT AS PARTNER
-        # gMod.ScoutAccess().selectScout()
-        # print(gMod.ScoutAccess().getRoleStatus())
+        gMod.ScoutAccess().selectScout()
+        print(gMod.ScoutAccess().getRoleStatus())
 
         #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
 
@@ -136,9 +136,11 @@ while(leaveGame==False):
                 print("SCOUT took a snack break and a nap to recharge from the long journey.\n"+playerName+": I suppose I do this alone... "+Fore.RESET+"You sigh, as you begin with the lower level. No sign. \nClimbing up the vines, you notice a faded, golden Y-like shape. Down below, you see SCOUT near the insignia. \nBy the time you climb down, they have marched to the right side of the ruins.\n"+playerName+": Hey! I found the-- "+Fore.RESET+"Near SCOUT, you hear a click and the ruins seem to tremble.")
         elif(gMod.winLoss(bonus)==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+line)
-            #ROUGE's crit win is logically impossible, since -2(skill)+12(max on die)=10(win, not crit win)
-            #HENCE, only SCOUT'S story is available here
-            print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
+            print("Your team scour the grounds for clues. According to the surviving adventurers, \nthe Yushin\'s insignia is a gold and white Y-like shape. The contraption is to the North of the insignia.\n")
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(Fore.RED+"ROUGE: Now where is that insignia..."+Fore.RESET+"You spot some faded, golden tiles.\n"+playerName+": Would that be it? "+Fore.RESET+"ROUGE responds with a loud \'Wa-hoo!\'With everything going to plan, you head Northbound from the insignia. Every wall \nlooks similar, but there is a slight shine of gold underneath some of the greenery.\n"+Fore.RED+"ROUGE: That's gotta be it! ...race you? "+Fore.RESET+"You two race over to the golden tile. Unfortunately, they won, but you worry more over the trembling ruins.")
+            else:
+                print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
 
         #Intro for lv2
         print(breakLine+"Around your team, the perimeter begin to disappear into the ground one by one. You cling to the wall, as the growing void nears. \nYou yelp, yet gravity does not seem to greet you. The growing void strangely stops a couple meters from where you stand. \nAnother tremble, as the couple meters of land begin to descend like an old elevator.\nAs the sun goes further away, the platform continues downwards and a rancid smell begins to grow. You inch away from the wall \nto look off the ledge, causing you to scream in horror. A skull was inches away from your face, as others seem to \nglare in envy at your safe descent. The rotting smell of death seems to grow, as the platform stops in a rumble.")
@@ -188,7 +190,7 @@ while(leaveGame==False):
 
         print("YOU AND YOUR PARTNER ROLLED A", bonus)
 
-        #lv1 results
+        #lv2 results
         if(gMod.winLoss(bonus)==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
             if(gMod.RougeAccess().getRoleStatus()):
@@ -209,10 +211,9 @@ while(leaveGame==False):
                 print("SCOUT took a snack break and a nap to recharge from the long journey.\n"+playerName+": I suppose I do this alone... "+Fore.RESET+"You sigh, as you begin with the lower level. No sign. \nClimbing up the vines, you notice a faded, golden Y-like shape. Down below, you see SCOUT near the insignia. \nBy the time you climb down, they have marched to the right side of the ruins.\n"+playerName+": Hey! I found the-- "+Fore.RESET+"Near SCOUT, you hear a click and the ruins seem to tremble.")
         elif(gMod.winLoss(bonus)==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+line)
-            if(gMod.RougeAccess().getRoleStatus()):
-                print("Panicking, ROUGE goes to the edge of the pit.\n"+playerName+": Hey, what are you-- "+Fore.RESET+"In sudden realization, you run to stop them, but they throw the lighter into the darkness. \nSuddenly, the room erupts in a flashing light. ROUGE responds with a loud \'Wa-hoo!\'\n"+Fore.RED+"ROUGE: I knew there had to be some kind of light thing in here!\n"+playerName+": ...That was reckless. Please let me know next time. "+Fore.RESET+"Their smile fades slightly, but they \nshow you understanding. With the rope so visible, you go with confidence. \nYou wobble slightly, but it seems like seconds that you are on the other side. You call your partner over. You see them pacing \nand encouraging themselves before their attempt. Every step they take is more uncertain than the last and feels like forever."+Fore.RED+"\nROUGE: Whew! Good thing I lit up this torch, eh? Say... should we take the torch with us? "+Fore.RESET+"\nSurprise paints your face, as you hand them the lighter first and take the torch shortly afterwards.")
-            else:
-                print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
+            #ROUGE's crit win is logically impossible, since -2(skill)+12(max on die)=10(win, not crit win)
+            #HENCE, only SCOUT's is available for crit win
+            print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
 
 
 
