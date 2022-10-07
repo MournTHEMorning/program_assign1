@@ -258,6 +258,18 @@ while(leaveGame==False):
                 print("Please roll again!")
                 rollAgain=True
 
+        #adding bonus
+        if(gMod.RougeAccess().getRoleStatus()==True):
+            print(Fore.RED+"PARTNER\'S BONUS(DAN):"+Fore.RESET, gMod.RougeAccess().getSpecial())
+            bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getSpecial())
+
+        elif(gMod.ScoutAccess().getRoleStatus()==True):
+            print(Fore.CYAN+"PARTNER\'S BONUS(PHY):"+Fore.RESET, gMod.ScoutAccess().getPHY())
+            bonus=gMod.traitBonus(diceResult,gMod.ScoutAccess().getPHY())
+
+        print("YOU AND YOUR PARTNER ROLLED A", bonus)
+
+
     #how to
     elif (menuAns=="H"):
         print(Fore.YELLOW+"\'Within the Yushin empire, there rests a treasure within the \'wealth of shining power / you may change the paths of rivers\'\'\n")
