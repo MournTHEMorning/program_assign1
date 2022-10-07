@@ -70,14 +70,14 @@ while(leaveGame==False):
         playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
 
             #FORCING ROUGE AS PARTNER
-        gMod.RougeAccess().selectRouge() 
-        print(gMod.RougeAccess().getRoleStatus())
-        print("ROUGE!")
+        # gMod.RougeAccess().selectRouge() 
+        # print(gMod.RougeAccess().getRoleStatus())
+        # print("ROUGE!")
 
         #     #FORCING SCOUT AS PARTNER
-        # gMod.ScoutAccess().selectScout()
-        # print(gMod.ScoutAccess().getRoleStatus())
-        # print("SCOUT")
+        gMod.ScoutAccess().selectScout()
+        print(gMod.ScoutAccess().getRoleStatus())
+        print("SCOUT")
 
         #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
 
@@ -225,7 +225,7 @@ while(leaveGame==False):
 
         #intro to lvl2b setting
         print(breakLine+"Many kilometres later, there is a sunlit path. You look at each other and walk a little bit faster. The small pathways lead to a large, \nchiseled cave painted in gold and white. Even stranger, ores upon ores of luminous gemstones emulate sunlight, \neven growing grass and being a habitat to insects and rodents. You snap a picture but it fails to capture the moment.\n"+playerName+": Wow... This is amazing! And over there! "+Fore.RESET+"\nYou point towards marble stairs, leading to a large circular doorway... with a keyhole.\n"+playerName+": Oh, come on! "+Fore.RESET+"Stomping towards the door, you hear a click beneath your feet. \nRumble. Arm being pulled. Fallen down. You let your mind catch up.")
-        """
+        
         #specialized dialogue, player almost dying (lvl 2ab)
         if (gMod.RougeAccess().getRoleStatus()):
             print(Fore.RED+"\nROUGE: Glad I\'m not the only one with pressure plate problems! You almost got smashed by that rock, friend!"+Fore.RESET)
@@ -240,7 +240,6 @@ while(leaveGame==False):
             print(Fore.RED+"ROUGE: So?? What are we waiting for? Let\'s go!"+Fore.RESET+" They look at the cobblestone floor and smile.\n"+Fore.RED+"ROUGE: This actually reminds me of a routine I did one time! Wa-hoo! Takes me back!"+Fore.RESET)
         else:
             print("SCOUT looks ahead with an unreadable expression.")        
-        
         
         rollAgain=True
         #rolling for lv2b, similar as above
@@ -275,28 +274,37 @@ while(leaveGame==False):
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: The routine was interesting! Wanna hear?\n"+playerName+": That does not even-- "+Fore.RESET+"They go on to tell you the story anyways, causing you to roll your eyes.\nAs you stare at the mural and compare, your arm gets whisked away. With a hand on your shoulder, ROUGE leans towards the cobblestone path.\nNot being prepared, they twirl you forwards, leading to a click beneath your feet. \nYou feel the stone brush your clothes, as ROUGE carries onwards.\nThey release you and jump to a cobblestone. \nYou hesitate, preparing to jump. However, you hear a click and step back to miss another stalactite.\nRunning on fear and irrationally, your body begins to run on every cobblestone. \nStalactites fall every which way, causing any debris to cloud your vision or scratch your skin. Everything becomes a blur..."+Fore.RED+"\n\nROUGE: Hey! You hear me?"+Fore.RESET+" You barely groan. The next bit you hear is ROUGE -- of all people -- is scolding you to be less reckless. \nHowever, you managed to make it to the other side.")
             else:
-                print("You look at the image a last time before running off, wanting momentum to take affect. SCOUT tries to catch up to you, \nbut your determination for the door is resilient. You hear a click and jump away just before the stalactite hit. \nShortly after, you hear SCOUT\'s heavy breathing and turn back to rescue them, letting them lean on you before dodging \nanother stalactite. The whole cavern shakes by the sheer amount of stalactites falling, causing debris to cloud your vision. \nAlmost as a miracle, your team comes out on the other side with heavy breathes and deep wounds.")
-        
+                print("You look at the image a last time before running off, wanting momentum to take affect. SCOUT tries to catch up to you, \nbut your determination for the door is resilient. You hear a click and jump away just before the stalactite hit. \nShortly after, you hear SCOUT\'s heavy breathing and turn back to rescue them, letting them lean on you before dodging \nanother stalactite. The whole cavern shakes by the sheer amount of stalactites falling, causing debris to cloud your vision. \nAlmost as a miracle, your team comes out on the other side with heavy breathes and deep wounds.")   
         elif(gMod.winLoss(bonus)==1):
             print("You recieved:"+Fore.YELLOW+"a LOSS(4-6)!"+line)
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: The routine was interesting! Wanna hear?\n"+playerName+": That does not even-- "+Fore.RESET+"They go on to tell you the story anyways, causing you to roll your eyes.\nAs you stare at the mural and compare, your arm gets whisked away. With a hand on your shoulder, ROUGE leans towards the cobblestone path. \nNot being prepared, they twirl you forwards, leading to a click beneath your feet. \nYou feel the stone brush your clothes, as ROUGE carries onwards.\nThey release you and jump to a cobblestone. \nYou hesitate, preparing to jump. When you land, you hear a click, as a stalactite falls just behind you. You sigh in relief, as \nROUGE looks at you with guilt and gestures you to follow. They do not dance anymore, yet you both activate many pressure plates. \nThe falling stalactites causes injuries to you both. You both breathe heavily when you make that last jump.")
             else:
-                print("After getting the idea, you begin. SCOUT attempts to usher you off the tiles, but your determination for the door is resilient.\nYou both walk most of the way, until there are jumps involved. You jump first, gesturing them to follow. They shut their eyes and jump,\njust barely missing the pressure plate. You both sigh in relief, as your team continues. The stalactites fall left and right, \ncausing debris to cloud your vision and injuries weakening your strength.\n"+playerName+": This is the narrow bit... "+Fore.RESET+"You begin to tip toe towards the other side, activating pressure plates with every misstep. \nSCOUT pushes one more pressure plate before collapsing before the stairs.")
-        
+                print("After getting the idea, you begin. SCOUT attempts to usher you off the tiles, but your determination for the door is resilient.\nYou both walk most of the way, until there are jumps involved. You jump first, gesturing them to follow. They shut their eyes and jump,\njust barely missing the pressure plate. You both sigh in relief, as your team continues. The stalactites fall left and right, \ncausing debris to cloud your vision and injuries weakening your strength.\n"+playerName+": This is the narrow bit... "+Fore.RESET+"You begin to tip toe towards the other side, activating pressure plates with every misstep. \nSCOUT pushes one more pressure plate before collapsing before the stairs.")      
         elif(gMod.winLoss(bonus)==2):
             print("You recieved: "+Fore.YELLOW+"a WIN(7-11)!"+line)
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: The routine was interesting! Wanna hear?\n"+playerName+": ...You know what? Sure. "+Fore.RESET+"Their eyes brighten, as they tell you from start to finish. \nLong story short, they taught waltz to a hip-pop and ballet dancer once. \nBy using a mix of dance styles, one would get a rhythm and remove the possibilities of mistakes.\n"+playerName+": Okay... Let\'s do it."+Fore.RESET+"They offer you their hand.\n"+Fore.RED+"ROUGE: Ready? "+Fore.RESET+"You nod, as they place their hand on your shoulder. ROUGE leans to the right, and you follow.\n You twirl onto the pressure plated \'dance floor,\' where you two waltz in a circle. No stalactites yet... \nThey let you go and jump over a cobblestone, waving you over. You hesitate, preparing to jump. When you land, \nyou hear a click, as a stalactite falls just behind you. You sigh in relief and continue onwards. \nYour feet go left, right, and shuffle. This led to some close calls, which ROUGE apologized for.\nThere are narrow cobblestones ahead, as ROUGE gestures you to point your toes. \nWith slight awkwardness, you mimic it easily, until hitting a pressure plate near the end. With one more jump, \nyou left the challenge. ROUGE\'s smiles slightly."+Fore.RED+"\nROUGE: Nice job! Are you hurt? "+Fore.RESET+"Fortunately, you shake your head, as you go up the stairs.")
             else:
-                print("After memorizing the path, you and SCOUT begin. You both walk most of the way, until there are jumps involved. \nYou jump first, gesturing them to follow. They shut their eyes and jump, just barely missing the pressure plate. \nYou both sigh in relief, as your team continues. The path goes left and right without any major troubles yet.\n"+playerName+": This is the narrow bit. Careful! "+Fore.RESET+"You begin to tip toe towards the other side. \nYou hear a click behind you, quickly saving your partner from a stalactite. They nod, as you complete the challenge.")
-        
+                print("After memorizing the path, you and SCOUT begin. You both walk most of the way, until there are jumps involved. \nYou jump first, gesturing them to follow. They shut their eyes and jump, just barely missing the pressure plate. \nYou both sigh in relief, as your team continues. The path goes left and right without any major troubles yet.\n"+playerName+": This is the narrow bit. Careful! "+Fore.RESET+"You begin to tip toe towards the other side. \nYou hear a click behind you, quickly saving your partner from a stalactite. They nod, as you complete the challenge.")   
         elif(gMod.winLoss(bonus)==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+line)
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: Ready? "+Fore.RESET+"You nod, as they place their hand on your shoulder. ROUGE leans to the right, and you follow.\n You twirl onto the pressure plated \'dance floor,\' where you two waltz in a circle. No stalactites yet... \nThey let you go and jump over a cobblestone, waving you over. Confidently, you jump over with your feet pointed.\nThey give you space to land, as you both continue to twirl onwards. Your feet go left, right, and shuffle. \nHowever, they never cross. There are narrow cobblestones ahead, as ROUGE gestures you to point your toes. \nWith confidence, you mimic it easily. With a twirl and jump, your team left the dance floor. ROUGE\'s smile beams."+Fore.RED+"\nROUGE: That was amazing! Thank you for this dance! "+Fore.RESET+"You both bow dramatically, chuckling slightly.")
             else:
                 print("After memorizing the path, you and SCOUT begin. You both walk most of the way, until there are jumps involved. \nYou jump first, gesturing them to follow. They swallow their fear and jump with ease. \nYou can see a bit of uneasiness fade away, as the path goes left and right.\n"+playerName+": This is the narrow bit. Careful! "+Fore.RESET+"You begin to tip toe towards the other side. \nYou hear a click behind you, quickly saving your partner from a stalactite. \nThey nod, as you complete the challenge.")
+        """
+
+        print("After catching their breath, your team walks up the stairs, waiting for the door to be opened... unless?\n"+playerName+": ...I think I misread the mural. "+Fore.RESET+"You notice the ident in the picture\'s mural. It must have been the key for the door."+Fore.MAGENTA+"\n???: You would be correct, nerd. "+Fore.RESET+"You turn to look but are greeted with a slam to the temple.\n\n... .... ..... ......\n\n"+playerName+": ... "+Fore.RESET+"You groan in pain, trying to adjust your vision. Your movement is restricted.")
+
+        #specialized dialogue: captured
+        if(gMod.RougeAccess().getRoleStatus()):
+            print("You recognize ROUGE\'s slick, red hair and questionable fashion taste."+Fore.RED+"\nROUGE: ...yes, it IS what it what it looks like. Look at those bandits over there. "+Fore.RESET+"They nudge their head.")
+        else:
+            print("You recognize SCOUT\'s navy hair and headband, but they feel incomplete without their huge backpack. \nYou look around to see the bandits that tied you both up.")
+
+        #input for testing 
+        input("hey for now: ")
 
     #how to
     elif (menuAns=="H"):
