@@ -71,13 +71,17 @@ while(leaveGame==False):
             #FORCING ROUGE AS PARTNER
         # gMod.RougeAccess().selectRouge() 
         # print(gMod.RougeAccess().getRoleStatus())
+        # print("ROUGE!")
 
         #     #FORCING SCOUT AS PARTNER
         gMod.ScoutAccess().selectScout()
         print(gMod.ScoutAccess().getRoleStatus())
+        print("SCOUT")
 
         #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
 
+        #commentted out intro, level 1, 2a for faster testing
+        """
         #intro
         print(line+Fore.RESET+"Many interviews with surviving explorers, a plane flight, gut-wrenching boat ride, and four hour hike later: Your team finally reached the ruins.\nMarble-coloured spires attempt to hide behind dense foliage of vines, trees, and weeds. \nThe cracked, white tiles once were as pristine of the spires, but one can tell that this was centuries ago.")
         
@@ -162,7 +166,7 @@ while(leaveGame==False):
             print("\nSCOUT stays silent and mutters a \'huh...\' Strangely, instead of looking forward, your partner follows a white line towards a wall."+Fore.CYAN+"\nSCOUT: Wait a moment... Is this?"+Fore.RESET)
         rollAgain=True
 
-        #rolling for lv2a, same as above
+        #rolling for lv2a, similar as above
         while(rollAgain):
             if(gMod.RougeAccess().getRoleStatus()):
                 rollInput=input(breakLine+Fore.GREEN+"ROLL for PRIMITIVE![Input R]: ").upper()
@@ -232,10 +236,27 @@ while(leaveGame==False):
 
         #specialized dialogue, lvl2b
         if (gMod.RougeAccess().getRoleStatus()):
-            print(Fore.RED+"ROUGE: So?? What are we waiting for? Let\'s go!"+Fore.RESET+"They look at the cobblestone floor and smiles.\n"+Fore.RED+"ROUGE: This actually reminds me of a routine I did one time! Wa-hoo! Takes me back"+Fore.RESET)
+            print(Fore.RED+"ROUGE: So?? What are we waiting for? Let\'s go!"+Fore.RESET+" They look at the cobblestone floor and smile.\n"+Fore.RED+"ROUGE: This actually reminds me of a routine I did one time! Wa-hoo! Takes me back!"+Fore.RESET)
         else:
             print("SCOUT looks ahead with an unreadable expression.")        
+        """
+        
+        rollAgain=True
+        #rolling for lv2b, similar as above
+        while(rollAgain):
+            if(gMod.RougeAccess().getRoleStatus()):
+                rollInput=input(breakLine+Fore.GREEN+"ROUGE\'s SPECIALITY [DANCE] IS IN EFFECT!\nROLL to support them![Input R]: ").upper()
+            else:
+                rollInput=input(line+Fore.GREEN+"\nROLL for PHYSICAL abilities![Input R]: ").upper()
 
+            diceResult=gMod.dice(rollInput)
+            rollAgain=False
+
+            if(type(diceResult)==int):
+                print("YOU ROLLED:"+Fore.RESET,diceResult)
+            else:
+                print("Please roll again!")
+                rollAgain=True
 
     #how to
     elif (menuAns=="H"):
