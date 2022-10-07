@@ -1,9 +1,11 @@
 """ALL USER INTERACTIVITY. This connects to all files (Rouge.py and Scout.py, App.py uses the file) 
 This uses all variables, methods, and classes related """
 from ast import For
-import colorama, Game
+import colorama, Game, gcTest
 from colorama import Fore
-gMod=Game.game()
+
+#changed variable, for testing gcTest
+gMod=gcTest.game()
 
 line=Fore.RESET+"\n-----*-----\n"
 breakLine=Fore.RESET+"\n============~*~============\n"
@@ -15,7 +17,7 @@ leaveGame=False
 #menu
 
 #USED TO TEST GAME WITHOUT MENU
-menuAns="S"
+#menuAns="S"
 
 while(leaveGame==False):
     #https://patorjk.com/software/taag/#p=display&f=Line%20Blocks&t=Treasure
@@ -26,13 +28,13 @@ while(leaveGame==False):
     print("\n                       [TREASURE]")
 
     print(Fore.RESET+"\n\nSTART"+Fore.GREEN+" [S]"+Fore.WHITE+"\nHOW TO PLAY"+Fore.GREEN+" [H]"+Fore.WHITE+"\nPARTNERS: BIO"+Fore.GREEN+" [P]"+Fore.WHITE+"\nEXIT GAME"+Fore.GREEN+" [E]")
-    #menuAns = input(Fore.GREEN+"**PLEASE TYPE HERE: "+Fore.RESET).upper()
+    menuAns = input(Fore.GREEN+"**PLEASE TYPE HERE: "+Fore.RESET).upper()
     print(line)
 
     #start
     if (menuAns=="S"):
  #The multiline comment/string is to quicken debugging and testing
-        """verify="N"
+        verify="N"
         #PLAYER NAME
         while(verify=="N"):
             playerName=input("WHAT IS YOUR NAME?: ").capitalize()
@@ -65,14 +67,14 @@ while(leaveGame==False):
                 roleSelected="N"
 
         input(Fore.GREEN+"Press the ENTER KEY to continue: ")#to skip option for now
-"""
+
         #FORCING PLAYERNAME=TESTER_NAME
-        playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
+        #playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
 
             #FORCING ROUGE AS PARTNER
-        gMod.RougeAccess().selectRouge() 
-        print(gMod.RougeAccess().getRoleStatus())
-        print("ROUGE!")
+        # gMod.RougeAccess().selectRouge() 
+        # print(gMod.RougeAccess().getRoleStatus())
+        # print("ROUGE!")
 
         #     #FORCING SCOUT AS PARTNER
         # gMod.ScoutAccess().selectScout()
@@ -82,7 +84,7 @@ while(leaveGame==False):
         #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
 
         #commentted out intro, level 1, 2a,2b, for faster testing
-        """
+        
         #intro
         print(line+Fore.RESET+"Many interviews with surviving explorers, a plane flight, gut-wrenching boat ride, and four hour hike later: Your team finally reached the ruins.\nMarble-coloured spires attempt to hide behind dense foliage of vines, trees, and weeds. \nThe cracked, white tiles once were as pristine of the spires, but one can tell that this was centuries ago.")
         
@@ -146,7 +148,9 @@ while(leaveGame==False):
                 print(Fore.RED+"ROUGE: Now where is that insignia..."+Fore.RESET+"You spot some faded, golden tiles.\n"+playerName+": Would that be it? "+Fore.RESET+"ROUGE responds with a loud \'Wa-hoo!\'With everything going to plan, you head Northbound from the insignia. Every wall \nlooks similar, but there is a slight shine of gold underneath some of the greenery.\n"+Fore.RED+"ROUGE: That's gotta be it! ...race you? "+Fore.RESET+"You two race over to the golden tile. Unfortunately, they won, but you worry more over the trembling ruins.")
             else:
                 print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
-
+        
+        #challenges 2a, 2b, 3 
+        """
         #Intro for lv2a
         print(breakLine+"Around your team, the perimeter begin to disappear into the ground one by one. You cling to the wall, as the growing void nears. \nYou yelp, yet gravity does not seem to greet you. The growing void strangely stops a couple meters from where you stand. \nAnother tremble, as the couple meters of land begin to descend like an old elevator.\nAs the sun goes further away, the platform continues downwards and a rancid smell begins to grow. You inch away from the wall \nto look off the ledge, causing you to scream in horror. A skull was inches away from your face, as others seem to \nglare in envy at your safe descent. The rotting smell of death seems to grow, as the platform stops in a rumble.")
 
@@ -305,7 +309,7 @@ while(leaveGame==False):
 
         #intro for lvl 3
         print(Fore.LIGHTCYAN_EX+"Bandit with Key: Look who woke up!"+Fore.MAGENTA+"\nBandit with Weapon: Does it really matter right now? Once our team gets the treasure, they\'ll have all the time to \'wake up\'.\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Geez... That is way too threatening.\n"+Fore.RESET+"Surprisingly, they seem rather friendly. Perhaps you and your partner can convince to let you both go?")
-        """
+        
 
         #EDIT BELOW!!
         rollAgain=True
@@ -358,8 +362,9 @@ while(leaveGame==False):
         elif(gMod.winLoss(bonus)==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+Fore.RESET+line)
             print(playerName+": Hey!\n"+Fore.RED+"ROUGE: If I may ask, why are you doing this?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Money. Easy.\n"+Fore.MAGENTA+"Bob(?): Hey! Don\'t rope me in with you--\n"+Fore.RED+"ROUGE: Well, we\'re explorers, and I\'m pretty rich.\n"+Fore.MAGENTA+"Bob(?): ...Prove it. What\'s something a rich person would only know?\n"+Fore.RED+"ROGUE: ...why? Are you rich?\n"+Fore.MAGENTA+"Bob(?) Hahaha! ...I haven\'t laughed in years! How do I thank-- ...no!"+Fore.RESET+" The other bandit just whispers to Bob(?). They nod."+Fore.LIGHTCYAN_EX+"\nBandit with Key: Listen, rich kid, just sign here, and I\'ll free you. Cool?"+Fore.RESET+"\nROUGE gestures to the ropes, tying their hands. The bandit just sighs and lets your team go. \nROUGE signs the chequebook, and the two bandits chuckle and give you the key. You lean over. \n"+playerName+": Did you actually--\n"+Fore.RED+"ROUGE: Perhaps~ "+Fore.RESET+" The two of you laugh, walking up the stairs.")
+        """
 
-
+        
     #how to
     elif (menuAns=="H"):
         print(Fore.YELLOW+"\'Within the Yushin empire, there rests a treasure within the \'wealth of shining power / you may change the paths of rivers\'\'\n")
