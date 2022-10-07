@@ -70,18 +70,18 @@ while(leaveGame==False):
         playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
 
             #FORCING ROUGE AS PARTNER
-        # gMod.RougeAccess().selectRouge() 
-        # print(gMod.RougeAccess().getRoleStatus())
-        # print("ROUGE!")
+        gMod.RougeAccess().selectRouge() 
+        print(gMod.RougeAccess().getRoleStatus())
+        print("ROUGE!")
 
         #     #FORCING SCOUT AS PARTNER
-        gMod.ScoutAccess().selectScout()
-        print(gMod.ScoutAccess().getRoleStatus())
-        print("SCOUT")
+        # gMod.ScoutAccess().selectScout()
+        # print(gMod.ScoutAccess().getRoleStatus())
+        # print("SCOUT")
 
         #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
 
-        #commentted out intro, level 1, 2a for faster testing
+        #commentted out intro, level 1, 2a,2b, for faster testing
         """
         #intro
         print(line+Fore.RESET+"Many interviews with surviving explorers, a plane flight, gut-wrenching boat ride, and four hour hike later: Your team finally reached the ruins.\nMarble-coloured spires attempt to hide behind dense foliage of vines, trees, and weeds. \nThe cracked, white tiles once were as pristine of the spires, but one can tell that this was centuries ago.")
@@ -293,7 +293,7 @@ while(leaveGame==False):
                 print(Fore.RED+"ROUGE: Ready? "+Fore.RESET+"You nod, as they place their hand on your shoulder. ROUGE leans to the right, and you follow.\n You twirl onto the pressure plated \'dance floor,\' where you two waltz in a circle. No stalactites yet... \nThey let you go and jump over a cobblestone, waving you over. Confidently, you jump over with your feet pointed.\nThey give you space to land, as you both continue to twirl onwards. Your feet go left, right, and shuffle. \nHowever, they never cross. There are narrow cobblestones ahead, as ROUGE gestures you to point your toes. \nWith confidence, you mimic it easily. With a twirl and jump, your team left the dance floor. ROUGE\'s smile beams."+Fore.RED+"\nROUGE: That was amazing! Thank you for this dance! "+Fore.RESET+"You both bow dramatically, chuckling slightly.")
             else:
                 print("After memorizing the path, you and SCOUT begin. You both walk most of the way, until there are jumps involved. \nYou jump first, gesturing them to follow. They swallow their fear and jump with ease. \nYou can see a bit of uneasiness fade away, as the path goes left and right.\n"+playerName+": This is the narrow bit. Careful! "+Fore.RESET+"You begin to tip toe towards the other side. \nYou hear a click behind you, quickly saving your partner from a stalactite. \nThey nod, as you complete the challenge.")
-        """
+        
 
         print("After catching their breath, your team walks up the stairs, waiting for the door to be opened... unless?\n"+playerName+": ...I think I misread the mural. "+Fore.RESET+"You notice the ident in the picture\'s mural. It must have been the key for the door."+Fore.MAGENTA+"\n???: You would be correct, nerd. "+Fore.RESET+"You turn to look but are greeted with a slam to the temple.\n\n... .... ..... ......\n\n"+playerName+": ... "+Fore.RESET+"You groan in pain, trying to adjust your vision. Your movement is restricted.")
 
@@ -303,8 +303,62 @@ while(leaveGame==False):
         else:
             print("You recognize SCOUT\'s navy hair and headband, but they feel incomplete without their huge backpack. \nYou look around to see the bandits that tied you both up.")
 
-        #input for testing 
-        input("hey for now: ")
+        #intro for lvl 3
+        print(Fore.LIGHTCYAN_EX+"Bandit with Key: Look who woke up!"+Fore.MAGENTA+"\nBandit with Weapon: Does it really matter right now? Once our team gets the treasure, they\'ll have all the time to \'wake up\'.\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Geez... That is way too threatening.\n"+Fore.RESET+"Surprisingly, they seem rather friendly. Perhaps you and your partner can convince to let you both go?")
+        """
+
+        #EDIT BELOW!!
+        rollAgain=True
+
+        #rolling for lv2a, similar as above
+        while(rollAgain):
+            rollInput=input(breakLine+Fore.GREEN+"ROLL for SOCIAL![Input R]: ").upper()
+            diceResult=gMod.dice(rollInput)
+            rollAgain=False
+
+            if(type(diceResult)==int):
+                print("YOU ROLLED:"+Fore.RESET,diceResult)
+            else:
+                print("Please roll again!")
+                rollAgain=True
+
+        #adding ROUGE: SOC bonus
+        if(gMod.RougeAccess().getRoleStatus()==True):
+            print(Fore.RED+"PARTNER\'S BONUS(SOC):"+Fore.RESET, gMod.RougeAccess().getSOC())
+            bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getSOC())
+
+            #adding SCOUT: SOC bonus
+        else:
+            print(Fore.CYAN+"PARTNER\'S BONUS(SOC):"+Fore.RESET, gMod.ScoutAccess().getSOC())
+            bonus=gMod.traitBonus(diceResult,gMod.ScoutAccess().getSOC())
+
+        print("YOU AND YOUR PARTNER ROLLED A", bonus)
+
+        #lv 3results
+        if(gMod.winLoss(bonus)==0):
+            print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(playerName+": Hey! Quit talking and help us out!"+Fore.MAGENTA+"\nBandit with Weapon: And why should we?\n"+Fore.RED+"ROUGE: What are you getting out of this?\n"+Fore.MAGENTA+"Bandit with Weapon: You know what? I am tired with your demands and questions! You just want to mess up our deal\nwith the market! They\'re paying some goooddd money for--\n"+Fore.RED+"ROUGE: Money, you say? I am something of a rich person myself, so if you let us go...?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Oh my! Look at that crest on their ring! Bob! This is a heck of a--\n"+Fore.MAGENTA+"Bob(?): No, Domino! Resist the cash--\n"+Fore.LIGHTCYAN_EX+"Domino(?): Let me have the ring at least-- "+Fore.RESET+"Bob slaps Domino, as Domino begins to retaliate. \nThe verbal and physical fight begins to grow, as the key gets thrown your way. You inch your way towards \nthe key, using the edge to cut the ropes. When Domino and Bob finish arguing, make up, and leave: you both are free.")
+            else:
+                print(playerName+": Hey! Quit talking and help us out!"+Fore.MAGENTA+"\nBandit with Weapon: And why should we?\n"+playerName+": What are you getting out of this? Money?"+Fore.LIGHTCYAN_EX+"\nBandit with Key: Pretty much. You too? \n"+playerName+": The museum is paying for my expenses. Perhaps we could--\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: How much?\n"+Fore.MAGENTA+"Bandit with Weapon: DOMINO! Loyalty!\n"+Fore.LIGHTCYAN_EX+"Domino(??): Money has my loyalty.\n"+playerName+": Anyways, thousands. "+Fore.RESET+"They laugh and ask for higher. \nThe betting war continues for quite a few minutes, until a \nknock at the circular door comes through. As Domino(??) rushes over, the other bandit comes closer.\n"+Fore.MAGENTA+"Bandit with Weapon: Listen, you may have Domino under your little rich finger, but-- \n"+Fore.RESET+"As quick as lightning, SCOUT knocks out the bandit and uses their weapon to break the ropes--"+Fore.LIGHTCYAN_EX+"\nDomino(??): Oh... I will look the other way. Only if I get two times the other price. The one for the four zeroes... each?\n"+playerName+": ...fine, but only if you give us the key. "+Fore.RESET+"Domino just throws you the key, making a dent in it and whistles away.")
+        elif(gMod.winLoss(bonus)==1):
+            print("You recieved:"+Fore.YELLOW+"a LOSS(4-6)!"+line)
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(playerName+": Hey! Let us go!\n"+Fore.MAGENTA+"Bandit with Weapon: And why should we?"+Fore.RED+"\nROUGE: I, mean, do you really want to do this?\n"+Fore.MAGENTA+"Bandit with Weapon: ...meh.\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Dunno Bob\'s reasons, but I just want some money. They shrug, as Bob(?) glares at them.\n"+Fore.RED+"ROUGE: Money? I don\'t mean to be rude, but you know this ring?\n"+Fore.MAGENTA+"Bob(?): ...is that?\n"+Fore.RED+"ROUGE: The one and richly~\n"+Fore.MAGENTA+"Bob(?): No! NO! Must resist the cash... "+Fore.RESET+"While Bob(?) talks to themselves, the Bandit with Key walks over to your team.\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Listen. Just give me the ring, and I promise I won\'t hurt you. "+Fore.RESET+"\nWith a nod of the head and an exchange for the ring and key, Domino begins to cut the ropes.\n"+Fore.MAGENTA+"Bob(?): DOMINO! You traitor!\n"+Fore.LIGHTCYAN_EX+"Domino(??): But what about--\n"+Fore.MAGENTA+"Bob(?): GIVE ME THE RING-- "+Fore.RESET+"They both run and hop on the pressure plates, leaving you to cut the rest with the key.")
+            else:
+                print(playerName+": Hey! Let us go!"+Fore.MAGENTA+"\nBandit with Weapon: And why should we?\n"+playerName+": What are you getting out of this? Money?"+Fore.LIGHTCYAN_EX+"\nBandit with Key: Pretty much. You too? \n"+playerName+": The museum is paying for my expenses. Perhaps we could come to--\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: How much?\n"+Fore.MAGENTA+"Bandit with Weapon: DOMINO! Loyalty!\n"+Fore.LIGHTCYAN_EX+"Domino(??): Money has my loyalty.\n"+playerName+": Anyways, thousands."+Fore.RESET+" They laugh and ask for higher. \nThe betting war continues for quite a few minutes, until a knock at the circular door comes through. \nAs Domino(??) rushes over, the other bandit comes closer.\n"+Fore.MAGENTA+"Bandit with Weapon: Listen, you may have Domino under your little rich finger, but-- "+Fore.RESET+"\nAs quick as breathing, SCOUT knocks out the bandit and uses their weapon to break the ropes. \nYou then both go towards the door, as the key is still in the keyhole.")
+        elif(gMod.winLoss(bonus)==2):
+            print("You recieved: "+Fore.YELLOW+"a WIN(7-11)!"+line)
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(playerName+": Hey!\n"+Fore.RED+"ROUGE: If I may ask, why are you doing this?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Money. Easy.\n"+Fore.MAGENTA+"Bob(?): Hey! Don\'t rope me in with you--\n"+Fore.RED+"ROUGE: Well, we\'re explorers, and I\'m pretty rich.\n"+Fore.MAGENTA+"Bob(?): ...Prove it. What\'s something a rich person would only know?\n"+Fore.RED+"ROGUE: The Demitasse Spoon is only used for stirring coffees and sometimes removing froth."+Fore.MAGENTA+"\nBob(?)...No! NO! Must resist the cash..."+Fore.RESET+"\nWhile Bob(?) talks to themselves, the Bandit with Key walks over to your team with a chequebook in hand."+Fore.LIGHTCYAN_EX+"\nBandit with Key: Listen, rich kid, just sign here and I\'ll free you. Cool?"+Fore.RESET+"\nROUGE gestures to the ropes. The bandit just sighs and lets your team go.\n"+Fore.MAGENTA+"Bob(?): DOMINO! You traitor!\n"+Fore.LIGHTCYAN_EX+"Domino(??): But what about--\n"+Fore.MAGENTA+"Bob(?): AFTER ALL I\'VE DONE FOR YOU-- "+Fore.RESET+"A pitiful scuffle begins to form, causing Domino(??) to drop their key.")
+            else:
+                print(playerName+": Hey! \n"+Fore.MAGENTA+"Bandit with Weapon: Hm? What is it nerd?\n"+playerName+": What are you getting out of this? Money?"+Fore.LIGHTCYAN_EX+"\nBandit with Key: Pretty much. You too? \n"+playerName+": The museum is paying for my expenses. Perhaps we could come to a... negotiation?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: How much?\n"+Fore.MAGENTA+"Bandit with Weapon: DOMINO! Loyalty!\n"+Fore.LIGHTCYAN_EX+"Domino(??): Money has my loyalty. Oh Bob, c\'mon, you can have a bit of my share~ "+Fore.RESET+"Bob(?) hesitates before subtly nodding. \n"+playerName+": How about thousands? "+Fore.RESET+"They laugh and ask for higher. \nThe betting war continues, but you stand your ground at hundred thousands of dollars. Attempting to intimidate, they get \ncloser and closer. \nSuddenly, SCOUT knocks out Bob(?) and uses their weapon to break the ropes. Domino surrenders."+Fore.LIGHTCYAN_EX+"\nDomino(?): Um, maybe hundreds? For the key? "+Fore.RESET+"SCOUT looks to you, as you quickly write Domino a cheque and give it to them. \nWith SCOUT's unrelenting glare, Domino sets down the key and runs away.")
+        #SCOUT's crit win is logically impossible, since -2(SOC skill)+12(max on die)=10(win, not crit win)
+        #HENCE, only ROUGE's is available for crit win
+        elif(gMod.winLoss(bonus)==3):
+            print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+Fore.RESET+line)
+            print(playerName+": Hey!\n"+Fore.RED+"ROUGE: If I may ask, why are you doing this?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Money. Easy.\n"+Fore.MAGENTA+"Bob(?): Hey! Don\'t rope me in with you--\n"+Fore.RED+"ROUGE: Well, we\'re explorers, and I\'m pretty rich.\n"+Fore.MAGENTA+"Bob(?): ...Prove it. What\'s something a rich person would only know?\n"+Fore.RED+"ROGUE: ...why? Are you rich?\n"+Fore.MAGENTA+"Bob(?) Hahaha! ...I haven\'t laughed in years! How do I thank-- ...no!"+Fore.RESET+" The other bandit just whispers to Bob(?). They nod."+Fore.LIGHTCYAN_EX+"\nBandit with Key: Listen, rich kid, just sign here, and I\'ll free you. Cool?"+Fore.RESET+"\nROUGE gestures to the ropes, tying their hands. The bandit just sighs and lets your team go. \nROUGE signs the chequebook, and the two bandits chuckle and give you the key. You lean over. \n"+playerName+": Did you actually--\n"+Fore.RED+"ROUGE: Perhaps~ "+Fore.RESET+" The two of you laugh, walking up the stairs.")
+
 
     #how to
     elif (menuAns=="H"):
