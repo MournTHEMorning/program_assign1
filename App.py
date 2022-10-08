@@ -54,10 +54,12 @@ while(leaveGame==False):
                 verify  = input(Fore.GREEN+"**TYPE YES[Y] to confirm: "+Fore.RESET).upper()
                 if (verify=="Y"):
                     if(roleSelected=="ROUGE"):
-                        gMod.RougeAccess().selectRouge()
+                        gMod.RougeAccess().selectRouge("Y")
+                        gMod.ScoutAccess().selectScout("N")
                         print(Fore.RED+"\nROUGE: "+playerName+Fore.RED+" is it? I\'m actually quite surprised that I can tag along! It will be my honour to find this cool treasure! \n...What are we waiting for? Let\'s go!")
                     else:
-                        gMod.ScoutAccess().selectScout()
+                        gMod.ScoutAccess().selectScout("Y")
+                        gMod.RougeAccess().selectRouge("N")
                         print(Fore.CYAN+"\nSCOUT: "+playerName+Fore.CYAN+" correct? ...alright. I will meet you there.")
                 else:
                     verify="N"
@@ -67,6 +69,8 @@ while(leaveGame==False):
                 verify="N"
 
         input(Fore.GREEN+"Press the ENTER KEY to continue: ")#to skip option for now
+        #resets score for a new game
+        gMod.resetScore()
 
         #FORCING PLAYERNAME=TESTER_NAME
         #playerName=Fore.GREEN+"Tester_Name[Please-add-RESET-at-end]"
@@ -119,29 +123,30 @@ while(leaveGame==False):
 
         print("YOU AND YOUR PARTNER ROLLED A", bonus)
 
+        lvl1_results=gMod.winLoss(bonus)
         #lv1 results
-        if(gMod.winLoss(bonus)==0):
+        if(lvl1_results==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
             print("Your team scour the grounds for clues. Unfortunately, the long travel has \nmade the team exhausted, not recalling any of the clues... Desperate, you check a familiar vine...\n")
             if(gMod.RougeAccess().getRoleStatus()):
                 print("Their open expression says it all."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+" They weakly\nslap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
             else:
                 print("They pace from one end to another, repeating their steps for the tenth time now. You wave them over to brainstorm,\nbut they wave you off and continue mumbling. Exhausted, you march towards them instead. Near SCOUT, you hear a click and the ruins seem to tremble.")
-        elif(gMod.winLoss(bonus)==1):
+        elif(lvl1_results==1):
             print("You recieved:"+Fore.YELLOW+"a LOSS(4-6)!"+line)
             print("Your team scour the grounds for clues. The interviews nare hazy, but you both recall the Yushin\'s insignia-- a gold and white \nV-shape, as you recall -- would lead to a contraption.\n")
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: Ugh! Where is that thing?\n"+playerName+": You mean, insignia?\n"+Fore.RED+"ROUGE: Yes! That thing! Where is it??"+Fore.RESET+" This was as convenient as a child asking if they were there yet, you thought. \nThey stepped on a yellow stain-- wait a moment.\n"+playerName+": Wait a moment! The stain on the tiles! Gold and white, leading..."+Fore.RESET+"\nQuickly, they dash off towards a random pile of vines.\n\nYou both looked in the insignia\'s general area for hours. ROUGE shoots you an irritated look."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+" They weakly slap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
             else:
                 print("SCOUT took a snack break, leaving you to continue searching. Looking high and low, you sigh.\n"+Fore.CYAN+"SCOUT: Anything? "+Fore.RESET+"You shake your head, as SCOUT walks ahead. They stepped on a yellow stain-- wait a moment.\n"+playerName+": Wait! The stain on the tiles! Gold and white, like-- "+Fore.RESET+"However, SCOUT has already left, already cluing in. \n\nYou both looked in the insignia\'s general area for hours, but no leads. SCOUT paces from one end to another, repeating their steps for the ninth time now.\nIn the middle of their tenth pace, they jog over to a familiar wall. Curious, you follow, as the ruins seem to tremble.") 
-        elif(gMod.winLoss(bonus)==2):
+        elif(lvl1_results==2):
             print("You recieved: "+Fore.YELLOW+"a WIN(7-11)!"+line)
             print("Your team scour the grounds for clues. Fortunately, you \nboth recall the Yushin\'s insignia-- a gold and white Y-like shape. \nThe contraption would be to the Northern side of the insignia. \n")
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: The insignia must be North, right? "+Fore.RESET+"They rush ahead and begin climbing the ruins, walking on some yellow-stained \ntiles in the process. Wondering if it is a trick of the light, you call to ROUGE.\n"+playerName+": ROUGE! Does this look like the insignia? "+Fore.RESET+"You jump on the golden tiles. ROUGE responds with a loud \'Wa-hoo!\'\nWith everything going to plan, you head Northbound from the insignia. Every wall looks similar, but there is a slight \nshine of gold underneath some of the greenery. With hesitance, you begin leaning into the tile, before ROUGE \ncrashes into you."+Fore.RED+"\nROUGE: What are we looking-- "+Fore.RESET+" The ruins seem to tremble.")
             else:
                 print("SCOUT took a snack break and a nap to recharge from the long journey.\n"+playerName+": I suppose I do this alone... "+Fore.RESET+"You sigh, as you begin with the lower level. No sign. \nClimbing up the vines, you notice a faded, golden Y-like shape. Down below, you see SCOUT near the insignia. \nBy the time you climb down, they have marched to the right side of the ruins.\n"+playerName+": Hey! I found the-- "+Fore.RESET+"Near SCOUT, you hear a click and the ruins seem to tremble.")
-        elif(gMod.winLoss(bonus)==3):
+        elif(lvl1_results==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+line)
             print("Your team scour the grounds for clues. According to the surviving adventurers, \nthe Yushin\'s insignia is a gold and white Y-like shape. The contraption is to the North of the insignia.\n")
             if(gMod.RougeAccess().getRoleStatus()):
@@ -364,6 +369,12 @@ while(leaveGame==False):
             print(playerName+": Hey!\n"+Fore.RED+"ROUGE: If I may ask, why are you doing this?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Money. Easy.\n"+Fore.MAGENTA+"Bob(?): Hey! Don\'t rope me in with you--\n"+Fore.RED+"ROUGE: Well, we\'re explorers, and I\'m pretty rich.\n"+Fore.MAGENTA+"Bob(?): ...Prove it. What\'s something a rich person would only know?\n"+Fore.RED+"ROGUE: ...why? Are you rich?\n"+Fore.MAGENTA+"Bob(?) Hahaha! ...I haven\'t laughed in years! How do I thank-- ...no!"+Fore.RESET+" The other bandit just whispers to Bob(?). They nod."+Fore.LIGHTCYAN_EX+"\nBandit with Key: Listen, rich kid, just sign here, and I\'ll free you. Cool?"+Fore.RESET+"\nROUGE gestures to the ropes, tying their hands. The bandit just sighs and lets your team go. \nROUGE signs the chequebook, and the two bandits chuckle and give you the key. You lean over. \n"+playerName+": Did you actually--\n"+Fore.RED+"ROUGE: Perhaps~ "+Fore.RESET+" The two of you laugh, walking up the stairs.")
         """
 
+        print(gMod.assessScore())
+        if(gMod.assessScore()>=7):
+            print("win!")
+
+        else:
+            print("lose!")
         
     #how to
     elif (menuAns=="H"):

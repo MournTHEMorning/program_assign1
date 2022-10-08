@@ -32,6 +32,8 @@ class scout():
         return self.HACK
 
     #Setter methods
-    def selectScout(self):
-        self.isScout=True
-        print(self.isScout)
+    def selectScout(self, choice):
+        if(choice=="Y"):
+            self.isScout=True
+        else:
+            self.isScout=False

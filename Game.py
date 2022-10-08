@@ -41,9 +41,8 @@ class game():
     #looking at score to see if player won or lost the whole game
     def assessScore(self):
       for i in range(len(score)):
-        print("testing testing")
-
-
+        print(score[i])
+  
     def RougeAccess(self):
         return rMod
 

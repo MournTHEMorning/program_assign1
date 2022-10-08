@@ -44,10 +44,13 @@ class game:
     
     #looking at score to see if player won or lost the whole game
     def assessScore(self):
-        print(self.score)
+        return self.score
 
     def RougeAccess(self):
         return rMod
 
     def ScoutAccess(self):
       return sMod
+
+    def resetScore(self):
+        self.score=0

@@ -32,6 +32,8 @@ class rouge():
         return self.DAN
 
     #Setter methods
-    def selectRouge(self):
-        self.isRouge=True
-        print(self.isRouge)
+    def selectRouge(self,choice):
+        if(choice=="Y"):
+            self.isRouge=True
+        else:
+            self.isRouge=False
