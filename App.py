@@ -374,7 +374,7 @@ while(leaveGame==False):
             print(playerName+": Hey!\n"+Fore.RED+"ROUGE: If I may ask, why are you doing this?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Money. Easy.\n"+Fore.MAGENTA+"Bob(?): Hey! Don\'t rope me in with you--\n"+Fore.RED+"ROUGE: Well, we\'re explorers, and I\'m pretty rich.\n"+Fore.MAGENTA+"Bob(?): ...Prove it. What\'s something a rich person would only know?\n"+Fore.RED+"ROGUE: ...why? Are you rich?\n"+Fore.MAGENTA+"Bob(?) Hahaha! ...I haven\'t laughed in years! How do I thank-- ...no!"+Fore.RESET+" The other bandit just whispers to Bob(?). They nod."+Fore.LIGHTCYAN_EX+"\nBandit with Key: Listen, rich kid, just sign here, and I\'ll free you. Cool?"+Fore.RESET+"\nROUGE gestures to the ropes, tying their hands. The bandit just sighs and lets your team go. \nROUGE signs the chequebook, and the two bandits chuckle and give you the key. You lean over. \n"+playerName+": Did you actually--\n"+Fore.RED+"ROUGE: Perhaps~ "+Fore.RESET+" The two of you laugh, walking up the stairs.")
         
 
-        print(gMod.assessScore())
+        #WIN ENDING
         if(gMod.assessScore()>=7):
             print("After getting all the resources and your supplies back, you march in with the key. \nThe door slides open with a push, as bandits argue amongst each other.\n"+Fore.LIGHTBLUE_EX+"Bandit #1: Seriously? Paper and whatever this is?\n"+Fore.LIGHTMAGENTA_EX+"Bandit #2: You sure we\'ll still get paid? ...oh hello! "+Fore.RESET+"They wave to you, creating attention. "+Fore.LIGHTRED_EX+"\nLeader Bandit: Y\'know what? Forget it! We can\'t even carry this much freakin\' paper if we wanted to. \nYou, nerds, take it! Crew, let\'s go. "+Fore.RESET+"Everyone packs up and leaves the room, eyeing your team in the process.")
 
@@ -393,9 +393,28 @@ while(leaveGame==False):
             print(playerName+": So, their treasure was... knowledge! "+Fore.RESET+"In awe, you take multiple photos and celebrate your success with your partner,\nembracing the ancient knowledge, and opening a whole new field of science and discovery!!")
             print(line+Fore.YELLOW+"\n***CONGRATULATIONS! YOU FOUND THE TREASURE!***"+Fore.RESET)
 
+        #LOSE ENDING
         else:
-            print("lose!")
+            print("After getting all the resources and your supplies back, you march in. Strangely, the door does not budge. \nWith every push, pull, and attempt: it does not seem to open. Pressing your ear to the door, you hear the bandits arguing with each other. \nThe yelling grows and grows but ends in an eerie silence and a smell of smoke... \nWait, smoke?")
         
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(Fore.RED+"\nROUGE: Umm... They didn\'t set anything on fire... right?")
+            else:
+                print(Fore.CYAN+"\nSCOUT: No, no, no,no-- "+Fore.RESET+"SCOUT starts pounding on the door, trying every which way to open the door.")
+
+            print("Eventually, the door slides open. The bandits rush past your team, as you see the whole room is engulfed in flames.\n"+playerName+": NO!! "+Fore.RESET+"You start running towards the scene.")
+
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(Fore.RED+"\nROUGE: HEY! STOP IT! ...PLEASE DON\'T LEAVE ME HERE!"+Fore.RESET+" You hear them crying your name.")
+            else:
+                print("\nSCOUT runs alongside you, reaching into their backpack for water or something, anything, to remove the fire.")
+            
+            print("\nBut, you trip, just to see an ancient history's treasure in flames. \nAll your hard work, everything you have done, has gone to flames.\nYour lungs fill with carbon dioxide, as the world fades away to crimson...")
+            print(line+Fore.YELLOW+"***YOU LOST... PLEASE TRY AGAIN!***"+Fore.RESET)
+
+
+
+
     #how to
     elif (menuAns=="H"):
         print(Fore.YELLOW+"\'Within the Yushin empire, there rests a treasure within the \'wealth of shining power / you may change the paths of rivers\'\'\n")
