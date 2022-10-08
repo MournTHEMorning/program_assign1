@@ -4,7 +4,6 @@ class rouge():
     def __init__(self):
         self.isRouge=False
         self.INTEL = 0
-        self.PHY=1
         self.SOC=1
         self.PRI=-2
         self.DAN=2
@@ -15,9 +14,6 @@ class rouge():
     
     def getINT(self):
         return self.INTEL
-    
-    def getPHY(self):
-        return self.PHY
 
     def getSOC(self):
         return self.SOC

@@ -6,7 +6,6 @@ class scout():
         self.INTEL = 1
         self.PHY=0
         self.SOC=-2
-        self.PRI=1
         self.HACK=2
 
     #Getter methods
@@ -21,9 +20,6 @@ class scout():
 
     def getSOC(self):
         return self.SOC
-    
-    def getPRI(self):
-        return self.PRI
     
     def getSpecial(self):
         return self.HACK
