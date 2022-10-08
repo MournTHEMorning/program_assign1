@@ -1,11 +1,11 @@
 """ALL USER INTERACTIVITY. This connects to all files (Rouge.py and Scout.py, App.py uses the file) 
 This uses all variables, methods, and classes related """
 from ast import For
-import colorama, Game, gcTest
+import colorama, Game
 from colorama import Fore
 
 #changed variable, for testing gcTest
-gMod=gcTest.game()
+gMod=Game.game()
 
 line=Fore.RESET+"\n-----*-----\n"
 breakLine=Fore.RESET+"\n============~*~============\n"
