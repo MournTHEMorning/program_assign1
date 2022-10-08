@@ -10,11 +10,12 @@ rMod=Rouge.rouge()
 sMod=Scout.scout()
 
 class game:
-    #variable score: keeps track of "points"  gained through winLoss() class and determines if player won/loss entire game
+    """variable score: keeps track of "points"  gained through winLoss() class and determines if player won/loss entire game"""
     def __init__(self):
+        #self.score is the counter for the player's points, determining if they win or lose the game
         self.score=0
         
-    #dice() function: when given a valid input("R") from App.py, will roll and give a random value from 1-12 (inclusive).
+    """dice() function: when given a valid input("R") from App.py, will roll and give a random value from 1-12 (inclusive)."""
     def dice(self,rollInput):
         if(rollInput=="R"):
             player_roll=random.randint(1,12)
@@ -22,15 +23,15 @@ class game:
         else:
             return None
 
-    #traitBonus() function: adds int variable diceValue-- which is the respective level's dice roll from dice() function--and
-                #int variable traitValue--which is the respective role attribute for the respective level-- to give App.py the total "roll"
+    """traitBonus() function: adds int variable diceValue-- which is the respective level's dice roll from dice() function--and
+                int variable traitValue--which is the respective role attribute for the respective level-- to give App.py the total 'roll' """
     def traitBonus(self,diceValue,traitValue):
         result=diceValue+traitValue
         return result
       
-    #winLoss() function: takes value from traitBonus() function from a specific level and 
-                        # adds the respective amount of points (points depend on what the total "roll" gave as a result(i.e. (crit)win/loss)) 
-                        # to the score variable
+    """winLoss() function: takes value from traitBonus() function from a specific level and 
+                        adds the respective amount of points (points depend on what the total "roll" gave as a result(i.e. (crit)win/loss)) 
+                        to the score variable"""
     def winLoss(self,diceNBonus):
         if(diceNBonus<=3):
             winOrLoss=0
@@ -45,18 +46,18 @@ class game:
         self.score+=winOrLoss
         return winOrLoss
     
-    #resetScore() function: resets the score to 0, in the case the player is playing again
+    """resetScore() function: resets the score to 0, in the case the player is playing again"""
     def resetScore(self):
         self.score=0
 
-    #assessScore() function: returns the score value
+    """assessScore() function: returns the score value"""
     def assessScore(self):
         return self.score
 
-    #RougeAccess() function: returns access to Rouge.py
+    """RougeAccess() function: returns access to Rouge.py"""
     def RougeAccess(self):
         return rMod
 
-    #ScoutAccess() function: returns access to Scout.py
+    """ScoutAccess() function: returns access to Scout.py"""
     def ScoutAccess(self):
       return sMod
