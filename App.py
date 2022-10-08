@@ -376,7 +376,22 @@ while(leaveGame==False):
 
         print(gMod.assessScore())
         if(gMod.assessScore()>=7):
-            print("win!")
+            print("After getting all the resources and your supplies back, you march in with the key. \nThe door slides open with a push, as bandits argue amongst each other.\n"+Fore.LIGHTBLUE_EX+"Bandit #1: Seriously? Paper and whatever this is?\n"+Fore.LIGHTMAGENTA_EX+"Bandit #2: You sure we\'ll still get paid? ...oh hello! "+Fore.RESET+"They wave to you, creating attention. "+Fore.LIGHTRED_EX+"\nLeader Bandit: Y\'know what? Forget it! We can\'t even carry this much freakin\' paper if we wanted to. \nYou, nerds, take it! Crew, let\'s go. "+Fore.RESET+"Everyone packs up and leaves the room, eyeing your team in the process.")
+
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(Fore.RED+"\nROUGE: Huh... They\'re strange."+Fore.RESET)
+            else:
+                print("\nSCOUT just huffs.")
+        
+            print("In contrast to the rest of the cave, the whole place is marble and is almost ethereal.\nTall marble spires reach to the ceilings with an oculus that lights the whole room. \nUnderneath the light is a dry pool filled with debris of a decomposed lily. \nThe side aqueducts are dry and fill the room with an stale smell. \nMost interesting of all, the treasure is not gold or silver, but...\n"+playerName+": Look at this! ...Prophecies, ancient technology blueprints, languages, letters... It\'s the empire\'s knowledge!")
+
+            if(gMod.RougeAccess().getRoleStatus()):
+                print(Fore.RED+"\nROUGE: So, when the myths said \'wealth of shining power,\' they meant metaphorically...\n"+Fore.RESET+"They look at some scrolls with military drawings.")
+            else:
+                print(Fore.CYAN+"\nSCOUT: \'To change the paths of rivers\'... The aqueducts, the advanced knowledge, and \ntheir relations with other civilizations... Uncle, I wish you saw this.")
+
+            print(playerName+": So, their treasure was... knowledge! "+Fore.RESET+"In awe, you take multiple photos and celebrate your success with your partner,\nembracing the ancient knowledge, and opening a whole new field of science and discovery!!")
+            print(line+Fore.YELLOW+"\n***CONGRATULATIONS! YOU FOUND THE TREASURE!***"+Fore.RESET)
 
         else:
             print("lose!")
