@@ -68,7 +68,7 @@ while(leaveGame==False):
                 print("\nPlease select a proper partner!"+line)
                 verify="N"
 
-        input(Fore.GREEN+"Press the ENTER KEY to continue: ")#to skip option for now
+        input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
         #resets score for a new game
         gMod.resetScore()
 
@@ -84,10 +84,6 @@ while(leaveGame==False):
         # gMod.ScoutAccess().selectScout()
         # print(gMod.ScoutAccess().getRoleStatus())
         # print("SCOUT")
-
-        #gotta print out treasure after the game end+menu pops up. Add a breakline after the player's role to see stats. Then input statement after the roll, to see results? (skip that for now, but add later)
-
-        #commentted out intro, level 1, 2a,2b, for faster testing
         
         #intro
         print(line+Fore.RESET+"Many interviews with surviving explorers, a plane flight, gut-wrenching boat ride, and four hour hike later: Your team finally reached the ruins.\nMarble-coloured spires attempt to hide behind dense foliage of vines, trees, and weeds. \nThe cracked, white tiles once were as pristine of the spires, but one can tell that this was centuries ago.")
@@ -127,6 +123,8 @@ while(leaveGame==False):
         #lv1 results
         if(lvl1_results==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+
             print("Your team scour the grounds for clues. Unfortunately, the long travel has \nmade the team exhausted, not recalling any of the clues... Desperate, you check a familiar vine...\n")
             if(gMod.RougeAccess().getRoleStatus()):
                 print("Their open expression says it all."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+" They weakly\nslap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
@@ -134,6 +132,8 @@ while(leaveGame==False):
                 print("They pace from one end to another, repeating their steps for the tenth time now. You wave them over to brainstorm,\nbut they wave you off and continue mumbling. Exhausted, you march towards them instead. Near SCOUT, you hear a click and the ruins seem to tremble.")
         elif(lvl1_results==1):
             print("You recieved:"+Fore.YELLOW+"a LOSS(4-6)!"+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+
             print("Your team scour the grounds for clues. The interviews nare hazy, but you both recall the Yushin\'s insignia-- a gold and white \nV-shape, as you recall -- would lead to a contraption.\n")
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: Ugh! Where is that thing?\n"+playerName+": You mean, insignia?\n"+Fore.RED+"ROUGE: Yes! That thing! Where is it??"+Fore.RESET+" This was as convenient as a child asking if they were there yet, you thought. \nThey stepped on a yellow stain-- wait a moment.\n"+playerName+": Wait a moment! The stain on the tiles! Gold and white, leading..."+Fore.RESET+"\nQuickly, they dash off towards a random pile of vines.\n\nYou both looked in the insignia\'s general area for hours. ROUGE shoots you an irritated look."+Fore.RED+"\nROUGE: UGH! When I signed up for this, I didn\'t think they would be so... un-obvious!"+Fore.RESET+" They weakly slap the wall in anger, causing you to only sigh and lean on the wall. The ruins seem to tremble.")
@@ -141,6 +141,9 @@ while(leaveGame==False):
                 print("SCOUT took a snack break, leaving you to continue searching. Looking high and low, you sigh.\n"+Fore.CYAN+"SCOUT: Anything? "+Fore.RESET+"You shake your head, as SCOUT walks ahead. They stepped on a yellow stain-- wait a moment.\n"+playerName+": Wait! The stain on the tiles! Gold and white, like-- "+Fore.RESET+"However, SCOUT has already left, already cluing in. \n\nYou both looked in the insignia\'s general area for hours, but no leads. SCOUT paces from one end to another, repeating their steps for the ninth time now.\nIn the middle of their tenth pace, they jog over to a familiar wall. Curious, you follow, as the ruins seem to tremble.") 
         elif(lvl1_results==2):
             print("You recieved: "+Fore.YELLOW+"a WIN(7-11)!"+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+
+
             print("Your team scour the grounds for clues. Fortunately, you \nboth recall the Yushin\'s insignia-- a gold and white Y-like shape. \nThe contraption would be to the Northern side of the insignia. \n")
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: The insignia must be North, right? "+Fore.RESET+"They rush ahead and begin climbing the ruins, walking on some yellow-stained \ntiles in the process. Wondering if it is a trick of the light, you call to ROUGE.\n"+playerName+": ROUGE! Does this look like the insignia? "+Fore.RESET+"You jump on the golden tiles. ROUGE responds with a loud \'Wa-hoo!\'\nWith everything going to plan, you head Northbound from the insignia. Every wall looks similar, but there is a slight \nshine of gold underneath some of the greenery. With hesitance, you begin leaning into the tile, before ROUGE \ncrashes into you."+Fore.RED+"\nROUGE: What are we looking-- "+Fore.RESET+" The ruins seem to tremble.")
@@ -148,13 +151,15 @@ while(leaveGame==False):
                 print("SCOUT took a snack break and a nap to recharge from the long journey.\n"+playerName+": I suppose I do this alone... "+Fore.RESET+"You sigh, as you begin with the lower level. No sign. \nClimbing up the vines, you notice a faded, golden Y-like shape. Down below, you see SCOUT near the insignia. \nBy the time you climb down, they have marched to the right side of the ruins.\n"+playerName+": Hey! I found the-- "+Fore.RESET+"Near SCOUT, you hear a click and the ruins seem to tremble.")
         elif(lvl1_results==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+
             print("Your team scour the grounds for clues. According to the surviving adventurers, \nthe Yushin\'s insignia is a gold and white Y-like shape. The contraption is to the North of the insignia.\n")
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: Now where is that insignia..."+Fore.RESET+"You spot some faded, golden tiles.\n"+playerName+": Would that be it? "+Fore.RESET+"ROUGE responds with a loud \'Wa-hoo!\'With everything going to plan, you head Northbound from the insignia. Every wall \nlooks similar, but there is a slight shine of gold underneath some of the greenery.\n"+Fore.RED+"ROUGE: That's gotta be it! ...race you? "+Fore.RESET+"You two race over to the golden tile. Unfortunately, they won, but you worry more over the trembling ruins.")
             else:
                 print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
         
-        #challenges 2a, 2b, 3 
+        input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
 
         #Intro for lv2a
         print(breakLine+"Around your team, the perimeter begin to disappear into the ground one by one. You cling to the wall, as the growing void nears. \nYou yelp, yet gravity does not seem to greet you. The growing void strangely stops a couple meters from where you stand. \nAnother tremble, as the couple meters of land begin to descend like an old elevator.\nAs the sun goes further away, the platform continues downwards and a rancid smell begins to grow. You inch away from the wall \nto look off the ledge, causing you to scream in horror. A skull was inches away from your face, as others seem to \nglare in envy at your safe descent. The rotting smell of death seems to grow, as the platform stops in a rumble.")
@@ -164,6 +169,8 @@ while(leaveGame==False):
             print("\nROUGE happily hops off the platform, eager to see solid ground."+Fore.RED+"\nROUGE: Whew... That almost felt like forever! So, where are we...?"+Fore.RESET+" They feel their waist coat and \'A-ha!\' at a lighter."+line)
         else:
             print("\nSCOUT cautiously walks off the platform. You hear them sifting through their large backpack. Warmth welcomes you.\n"+Fore.CYAN+"SCOUT: It\'s safe."+Fore.RESET+" They tilt their head towards the tunnel."+line)
+
+        input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
 
         print("The moment you step off the platform, it begins to ascend. You reach out, as if it will respond. \nSlowly, the rest of the cave is shrouded in darkness. With caution, you both walk into\nthe tunnel. Ominously, the cavern is coated with dried blood, skeletons, and chewed up clothes from various eras.\nStrangely, there is an especially large pile of skeletons near a golden Y-shaped sigil. Curious, you walk towards \nit, as the walls are painted in vibrant colour and rich history. \nQuickly you take out your camera for later analysis.\n"+playerName+": This is Yushin\'s unrecorded history! I-i-- Did they use paints? \nWow, I wish I can collect samples!! Oh, I wonder... \n"+Fore.RESET+"You continue to rant and take pictures, as your team goes deeper into the cavern.\n")
 
@@ -179,7 +186,7 @@ while(leaveGame==False):
         #rolling for lv2a, similar as above
         while(rollAgain):
             if(gMod.RougeAccess().getRoleStatus()):
-                rollInput=input(breakLine+Fore.GREEN+"ROLL for PRIMITIVE![Input R]: ").upper()
+                rollInput=input(line+Fore.GREEN+"ROLL for PRIMITIVE![Input R]: ").upper()
             else:
                 rollInput=input(line+Fore.GREEN+"\nSCOUT\'s SPECIALITY [HACK] IS IN EFFECT!\nROLL to support them![Input R]: ").upper()
 
@@ -208,18 +215,23 @@ while(leaveGame==False):
         #lv2a results
         if(lvl2a_results==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+
             if(gMod.RougeAccess().getRoleStatus()):
                 print("Panicking, ROUGE goes to the edge of the pit.\n"+playerName+": Hey, what are you--"+Fore.RESET+" ROUGE throws the lighter into the pit, as you rush over to them.\n"+playerName+": ROUGE! WHY DID YOU DO THAT?"+Fore.RED+"\nROUGE: I-i thought maybe there would be a-- "+Fore.RESET+"You shush them in irritation.\nUsing the little cave light available, you cross first. Your arms wave in the air helplessly, \nas your feet wobble forwards. When you feel solid ground, you call your partner over.\nWanting to catch up, ROUGE steps erratically. Every step they take is like risk. For what seems like forever, \nROUGE jumps the last few feet, as the darkness emits a loud \'SNAP!\' \nA body crashes into you, almost making you both to fall into the pit.")
             else:
                 print("Thinking SCOUT has gotten tired from the travel, you look away for a moment, thinking how to approach the tightrope. \nLike how dawn turns to night, you wonder why the light has lessened. You look at SCOUT but, they are no one in sight. \nYou panic, shouting their name. From the other side of tightrope, you notice a growing light\n"+playerName+": SCOUT! Is that you? "+Fore.RESET+"SCOUT waves over, emerging from the wall...? They wave you over, \nas anxiousness crawls up your spine. Your arms wave in the air helplessly, as your feet wobble forwards in \nhope of better footing. \nAs you come closer to solid ground, your feet begin to move erratically. \nHearing a \'SNAP'\ from behind, you jump the last bit of distance. You crash into SCOUT, as they groan from impact.")
         elif(lvl2a_results==1):
             print("You recieved:"+Fore.YELLOW+"a LOSS(4-6)!"+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+
             if(gMod.RougeAccess().getRoleStatus()):
                 print("Panicking, ROUGE goes to the edge of the pit.\n"+playerName+": Hey, what are you-- "+Fore.RESET+"In sudden realization, you run to stop them from throwing away the lighter.\nYou grab them just in time, glaring at them."+Fore.RED+"\nROUGE: I-i thought maybe there would be a--\n"+playerName+": I don\'t even want to hear it..."+Fore.RESET+"\nUsing the remaining light, you cross first. Your arms wave in the air helplessly, as your feet wobble \nforwards in hope of better footing. Your vision is growing dimmer and dimmer, as the tightrope almost \ndisappears from beneath you. Without any sight, you find your way to solid ground, calling your partner over.\nYou see them pacing and encouraging themselves before their attempt. Every step they take is a risk."+Fore.RED+"\nROUGE: Whew! That was not so bad-- "+Fore.RESET+"The lighter goes out, leaving you to sigh.")
             else:
                 print("Thinking SCOUT has gotten tired from the travel, you look away for a moment, thinking how to approach the tightrope. \nLike how dawn turns to night, you wonder why the light has lessened. You look at SCOUT but, they disappear behind a wall. \nConfused, you hit the wall, as you shout their name.\n"+playerName+": They will come back... right? "+Fore.RESET+"Then, you notice a growing light and call out to SCOUT, who waves you over. \nYour arms wave in the air helplessly, as your feet wobble forwards in hope of better footing. \nAs you come closer to solid ground, your feet begin to move erratically but eventually reach solid ground.\n"+playerName+": Where did you go?"+Fore.CYAN+"\nSCOUT: Secret passage. I guess you were not behind me."+Fore.RESET)
         elif(lvl2a_results==2):
             print("You recieved: "+Fore.YELLOW+"a WIN(7-11)!"+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
             if(gMod.RougeAccess().getRoleStatus()):
                 print("Panicking, ROUGE goes to the edge of the pit.\n"+playerName+": Hey, what are you-- "+Fore.RESET+"With a grand gesture, they throw the lighter to other side, as the fire extinguishes.\n"+playerName+": ROUGE! WHY DID YOU DO THAT?"+Fore.RED+"\nROUGE: I was thinking we could save the lighter for later..? Oh.. Yeah, that was not a smart idea, was it?"+Fore.RESET+"\nYou facepalm, having to work with the faint cave light. After adjusting to the darkness, you cross first. Your arms wave in the \nair helplessly, as your feet wobble forwards in hope of better footing. Eventually, you feel solid ground and call your partner over.\nYou see them pacing before their attempt, and every step feels infinite."+Fore.RED+"\nROUGE: Whew! That was not so bad! The lighter is here too! "+Fore.RESET+"\nThey grin and click the lighter, revealing the path once again.")
             else:
@@ -228,13 +240,15 @@ while(leaveGame==False):
         #HENCE, only SCOUT's is available for crit win
         elif(lvl2a_results==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+Fore.RESET+line)
+            input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
             print("Curious, you observe SCOUT fiddle with the wall. "+Fore.CYAN+"\nSCOUT: It is not a wall... but rather a secret tunnel. "+Fore.RESET+"\nAlmost on queue, the stone wall slides open, and SCOUT closes up their backpack. In the tunnel, \nthere are torches around. SCOUT lights the torches within the secret passageway, revealing a cobblestone shrine. \nThe both of you gasp, remembering the Yushin\'s tradition of remembering the departed. \nQuickly, you take photos and gently remove a papyrus from the wall."+Fore.CYAN+"\nSCOUT: What does it say,"+playerName+Fore.CYAN+"? "+Fore.RESET+"You quickly translate the characters.\n"+playerName+": \'Dearest\', I think it\'s a name, \'Ethikosh, we miss you dearly. May you rest \nin your art of passion.\' ...I think they built this place."+Fore.CYAN+"\nSCOUT: Amazing... Can we take it? "+Fore.RESET+"You smile and nod, placing the papyrus in their backpack. You glance at the shrine once more and take \nthe torch with you, before leaving the side room.")
 
+        input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
             
-        print(line+"Every step leads to more cramped spaces and traps. Your partner had a close call with a pressure plate and poison darts.\nThe deeper you go, the more rustling and clattering you hear from the darkness... It must be the wind, right?\nOn the bright side, there are less bodies and blood on the path, which means that the treasure awaits...")
+        print(breakLine+"Every step leads to more cramped spaces and traps. Your partner had a close call with a pressure plate and poison darts.\nThe deeper you go, the more rustling and clattering you hear from the darkness... It must be the wind, right?\nOn the bright side, there are less bodies and blood on the path, which means that the treasure awaits...")
 
         #intro to lvl2b setting
-        print(breakLine+"Many kilometres later, there is a sunlit path. You look at each other and walk a little bit faster. The small pathways lead to a large, \nchiseled cave painted in gold and white. Even stranger, ores upon ores of luminous gemstones emulate sunlight, \neven growing grass and being a habitat to insects and rodents. You snap a picture but it fails to capture the moment.\n"+playerName+": Wow... This is amazing! And over there! "+Fore.RESET+"\nYou point towards marble stairs, leading to a large circular doorway... with a keyhole.\n"+playerName+": Oh, come on! "+Fore.RESET+"Stomping towards the door, you hear a click beneath your feet. \nRumble. Arm being pulled. Fallen down. You let your mind catch up.")
+        print(line+"Many kilometres later, there is a sunlit path. You look at each other and walk a little bit faster. The small pathways lead to a large, \nchiseled cave painted in gold and white. Even stranger, ores upon ores of luminous gemstones emulate sunlight, \neven growing grass and being a habitat to insects and rodents. You snap a picture but it fails to capture the moment.\n"+playerName+": Wow... This is amazing! And over there! "+Fore.RESET+"\nYou point towards marble stairs, leading to a large circular doorway... with a keyhole.\n"+playerName+": Oh, come on! "+Fore.RESET+"Stomping towards the door, you hear a click beneath your feet. \nRumble. Arm being pulled. Fallen down. You let your mind catch up.")
         
         #specialized dialogue, player almost dying (lvl 2ab)
         if (gMod.RougeAccess().getRoleStatus()):
@@ -374,7 +388,7 @@ while(leaveGame==False):
             print(playerName+": Hey!\n"+Fore.RED+"ROUGE: If I may ask, why are you doing this?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Money. Easy.\n"+Fore.MAGENTA+"Bob(?): Hey! Don\'t rope me in with you--\n"+Fore.RED+"ROUGE: Well, we\'re explorers, and I\'m pretty rich.\n"+Fore.MAGENTA+"Bob(?): ...Prove it. What\'s something a rich person would only know?\n"+Fore.RED+"ROGUE: ...why? Are you rich?\n"+Fore.MAGENTA+"Bob(?) Hahaha! ...I haven\'t laughed in years! How do I thank-- ...no!"+Fore.RESET+" The other bandit just whispers to Bob(?). They nod."+Fore.LIGHTCYAN_EX+"\nBandit with Key: Listen, rich kid, just sign here, and I\'ll free you. Cool?"+Fore.RESET+"\nROUGE gestures to the ropes, tying their hands. The bandit just sighs and lets your team go. \nROUGE signs the chequebook, and the two bandits chuckle and give you the key. You lean over. \n"+playerName+": Did you actually--\n"+Fore.RED+"ROUGE: Perhaps~ "+Fore.RESET+" The two of you laugh, walking up the stairs.")
         
 
-        #WIN ENDING
+        #WIN ENDING, need at least 7 points to win
         if(gMod.assessScore()>=7):
             print("After getting all the resources and your supplies back, you march in with the key. \nThe door slides open with a push, as bandits argue amongst each other.\n"+Fore.LIGHTBLUE_EX+"Bandit #1: Seriously? Paper and whatever this is?\n"+Fore.LIGHTMAGENTA_EX+"Bandit #2: You sure we\'ll still get paid? ...oh hello! "+Fore.RESET+"They wave to you, creating attention. "+Fore.LIGHTRED_EX+"\nLeader Bandit: Y\'know what? Forget it! We can\'t even carry this much freakin\' paper if we wanted to. \nYou, nerds, take it! Crew, let\'s go. "+Fore.RESET+"Everyone packs up and leaves the room, eyeing your team in the process.")
 
