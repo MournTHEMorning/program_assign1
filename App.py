@@ -1,18 +1,22 @@
 """ALL USER INTERACTIVITY. This connects to all files (Rouge.py and Scout.py, App.py uses the file) 
-This uses all variables, methods, and classes related """
-from ast import For
+This uses all variables, methods, and classes related. This module would be the main class, traditionally"""
+#colorama allows coloured text. Comes with Python. Module is used through "Fore.COLOR" and added to a string.
+#Game is imported to access game class, which has access to Rouge.py, Scout.py, and other methods relating to game logic
 import colorama, Game
 from colorama import Fore
 
+#Reference variable for game class in module Game.py
 gMod=Game.game()
 
+#line and breakLine variables for readability
 line=Fore.RESET+"\n-----*-----\n"
 breakLine=Fore.RESET+"\n============~*~============\n"
+#Condition to leave menu loop
 leaveGame=False
 
 #menu
 while(leaveGame==False):
-    #https://patorjk.com/software/taag/#p=display&f=Line%20Blocks&t=Treasure
+    #Graphics from: https://patorjk.com/software/taag/#p=display&f=Line%20Blocks&t=Treasure
     print(Fore.YELLOW+"""  _______  ______   ______  ______   ______   _    _   ______   ______ 
     | |   | |  | \ | |     | |  | | / |      | |  | | | |  | \ | |     
     | |   | |__| | | |---- | |__| | '------. | |  | | | |__| | | |---- 
@@ -23,10 +27,11 @@ while(leaveGame==False):
     menuAns = input(Fore.GREEN+"**PLEASE TYPE HERE: "+Fore.RESET).upper()
     print(line)
 
-    #start
+    #START OPTION/THE GAME [Goes for many lines]
     if (menuAns=="S"):
+
         verify="N"
-        #PLAYER NAME
+        #ASKING PLAYER FOR THEIR NAME [While loop gets out after variable verify]
         while(verify!="Y"):
             playerName=input("WHAT IS YOUR NAME?: ").capitalize()
             playerName=(Fore.GREEN+playerName)
@@ -34,18 +39,22 @@ while(leaveGame==False):
             verify  = input(Fore.GREEN+"**TYPE YES[Y] or NO[N]: "+Fore.RESET).upper()
             print(line)
             
-        #partner prompt
+        #ROLE SELECTION: ROUGE or SCOUT [While loop gets out after variable verify]
         verify="N"
         while(verify!="Y"):
             print(playerName+", is it? Now, who will be your partner? \n**ONCE YOU SELECT, YOU WILL NOT BE ABLE TO CHANGE PARTNERS")
             print(Fore.RED+"ROUGE: A dramatic but goodhearted explorer!\n		STATS: INT 0 | PHY 1 | SOC 1 | PRI -2 | SPECIALTY: DANCE")
             print(Fore.CYAN+"\nSCOUT: A cold but passionate explorer!\n 		STATS: INT 1 | PHY 0 | SOC -2 | PRI 1 | SPECIALTY: HACK")
             roleSelected=input(Fore.GREEN+"WHO SHALL JOIN YOU? [Type their FULL NAME]: "+Fore.RESET).upper()
+
             if(roleSelected=="ROUGE" or roleSelected=="SCOUT"):
                 verify  = input(Fore.GREEN+"**TYPE YES[Y] to confirm: "+Fore.RESET).upper()
                 if (verify=="Y"):
+                    #gMod.RougeAccess() means "access Rouge.py through RougeAccess() function in game class of Game.py module"
                     if(roleSelected=="ROUGE"):
+                        #selectRouge("Y") activates Rouge and allows for specialized dialogue/game attributes within conditionals
                         gMod.RougeAccess().selectRouge("Y")
+                        #selectScout("N") is to deactivate Scout, in case this game is right after a previous game
                         gMod.ScoutAccess().selectScout("N")
                         print(Fore.RED+"\nROUGE: "+playerName+Fore.RED+" is it? I\'m actually quite surprised that I can tag along! It will be my honour to find this cool treasure! \n...What are we waiting for? Let\'s go!")
                     else:
@@ -59,36 +68,47 @@ while(leaveGame==False):
                 print("\nPlease select a proper partner!"+line)
                 verify="N"
 
+        #empty input is just for clarity and organization purposes. Will be throughout game 
         input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
-        #resets score for a new game
+        #--------------
+
+        #resets score, in the chance that this is a replay of the game
         gMod.resetScore()
         
-        #intro
+        #INTRO TO GAME/LEVEL 1
         print(line+Fore.RESET+"Many interviews with surviving explorers, a plane flight, gut-wrenching boat ride, and four hour hike later: Your team finally reached the ruins.\nMarble-coloured spires attempt to hide behind dense foliage of vines, trees, and weeds. \nThe cracked, white tiles once were as pristine of the spires, but one can tell that this was centuries ago.")
         
-        #specialized dialogue
+        #specialized dialogue for Rouge and Scout, which depends if getRoleStatus()--or if the role is activated--is True or False. 
+        #Will be throughout game
+        #This one is them reacting to Level 1
         if (gMod.RougeAccess().getRoleStatus()):
             print(Fore.RED+"\nROUGE: Alright! Let\'s get searching!")
         else:
             print(Fore.CYAN+"\nSCOUT is already several feet away, searching for clues...")
+        
+        #ROLLING THE DIE: similar structure used throughout
         rollAgain=True
-
-        #rolling for lv1
+        #LEVEL 1 - ROLLING THE DIE [INT]
         while(rollAgain):
             rollInput=input(line+Fore.GREEN+"ROLL for INTEL SKILLS![Input R]: ").upper()
+
+            #Sees if the roll input is valid
             diceResult=gMod.dice(rollInput)
             rollAgain=False
 
-            #if valid input
             if(type(diceResult)==int):
                 print("YOU ROLLED:"+Fore.RESET,diceResult)
             else:
                 print("Please roll again!")
+                #meaning that user did not input "R" and repeats
                 rollAgain=True
+
         
-        #adding bonus
+        #ADDING SKILL BONUS: similar structure and used throughout
         if(gMod.RougeAccess().getRoleStatus()==True):
+            #gets intel skill from role and prints out to user
             print(Fore.RED+"PARTNER\'S BONUS(INT):"+Fore.RESET, gMod.RougeAccess().getINT())
+            #gets dice roll and intel skill from role to recieve the roll+bonus
             bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getINT())
 
         elif(gMod.ScoutAccess().getRoleStatus()==True):
@@ -97,8 +117,9 @@ while(leaveGame==False):
 
         print("YOU AND YOUR PARTNER ROLLED A", bonus)
 
+        #LEVEL 1 RESULTS: sends variable bonus to gMod.winLoss(), recieves a number associated with different (crit) win/loss,
+                        # prints out result based on condition and role
         lvl1_results=gMod.winLoss(bonus)
-        #lv1 results
         if(lvl1_results==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
             input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
@@ -138,30 +159,32 @@ while(leaveGame==False):
                 print("You begin climbing the vines surrounding the ruins, searching for the golden tiles You breathe in the sight. The Yushin themselves stood \nhere many centuries ago!\n"+playerName+": How amazing...  oh? "+Fore.RESET+"By the time you climb down, SCOUT finishes their snack break.\n"+playerName+": Hey! I found the tiles!"+Fore.RESET+" SCOUT raises their eyebrows.\n"+Fore.CYAN+"SCOUT: Really? ...great! "+Fore.RESET+"You lead them, stomping harshly on the golden hue. They take their compass, pointing North. Within a short walk, there is a \nslight shine of gold underneath the greenery. Filled with excitement, you rush over. You push the tile, as you see... a smile(?) and feel a rumble.")
         
         input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+        #--------------
 
-        #Intro for lv2a
+        #ENDING FOR LEVEL 1
         print(breakLine+"Around your team, the perimeter begin to disappear into the ground one by one. You cling to the wall, as the growing void nears. \nYou yelp, yet gravity does not seem to greet you. The growing void strangely stops a couple meters from where you stand. \nAnother tremble, as the couple meters of land begin to descend like an old elevator.\nAs the sun goes further away, the platform continues downwards and a rancid smell begins to grow. You inch away from the wall \nto look off the ledge, causing you to scream in horror. A skull was inches away from your face, as others seem to \nglare in envy at your safe descent. The rotting smell of death seems to grow, as the platform stops in a rumble.")
 
-        #specialized dialogue (for character growth)
+        #specialized dialogue - lighter
         if (gMod.RougeAccess().getRoleStatus()):
             print("\nROUGE happily hops off the platform, eager to see solid ground."+Fore.RED+"\nROUGE: Whew... That almost felt like forever! So, where are we...?"+Fore.RESET+" They feel their waist coat and \'A-ha!\' at a lighter."+line)
         else:
             print("\nSCOUT cautiously walks off the platform. You hear them sifting through their large backpack. Warmth welcomes you.\n"+Fore.CYAN+"SCOUT: It\'s safe."+Fore.RESET+" They tilt their head towards the tunnel."+line)
 
         input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+        #--------------
 
+        #INTRO FOR LEVEL 2A
         print("The moment you step off the platform, it begins to ascend. You reach out, as if it will respond. \nSlowly, the rest of the cave is shrouded in darkness. With caution, you both walk into\nthe tunnel. Ominously, the cavern is coated with dried blood, skeletons, and chewed up clothes from various eras.\nStrangely, there is an especially large pile of skeletons near a golden Y-shaped sigil. Curious, you walk towards \nit, as the walls are painted in vibrant colour and rich history. \nQuickly you take out your camera for later analysis.\n"+playerName+": This is Yushin\'s unrecorded history! I-i-- Did they use paints? \nWow, I wish I can collect samples!! Oh, I wonder... \n"+Fore.RESET+"You continue to rant and take pictures, as your team goes deeper into the cavern.\n")
-
-        #lvl 2a
         print("For hours, your team sees broken bridges to obvious tripwires. You even used a grappling hook, but it broke on the \nlast swing... Ahead, you barely see a worn out tightrope with rusted spears under it.")
-        #specialized dialogue
+        
+        #specialized dialogue - reaction to 2a
         if (gMod.RougeAccess().getRoleStatus()):
             print(Fore.RED+"\nROUGE: Ah! I wish we still had our grappling hook..."+Fore.RESET)
         else:
             print("\nSCOUT stays silent and mutters a \'huh...\' Strangely, instead of looking forward, your partner follows a white line towards a wall."+Fore.CYAN+"\nSCOUT: Wait a moment... Is this?"+Fore.RESET)
+        
+        #LEVEL 2A - ROLL [PRI/HACK]
         rollAgain=True
-
-        #rolling for lv2a, similar as above
         while(rollAgain):
             if(gMod.RougeAccess().getRoleStatus()):
                 rollInput=input(line+Fore.GREEN+"ROLL for PRIMITIVE SKILLS![Input R]: ").upper()
@@ -177,20 +200,22 @@ while(leaveGame==False):
                 print("Please roll again!")
                 rollAgain=True
 
-            #adding ROUGE: PRI bonus
+        #rouge skill bonus - PRI
         if(gMod.RougeAccess().getRoleStatus()==True):
             print(Fore.RED+"PARTNER\'S BONUS(PRI):"+Fore.RESET, gMod.RougeAccess().getPRI())
             bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getPRI())
 
-            #adding SCOUT: HACK bonus
+        #scout skill bonus - HACK
         else:
             print(Fore.CYAN+"PARTNER\'S BONUS(HACK):"+Fore.RESET, gMod.ScoutAccess().getSpecial())
             bonus=gMod.traitBonus(diceResult,gMod.ScoutAccess().getSpecial())
 
         print("YOU AND YOUR PARTNER ROLLED A", bonus)
 
+        #LEVEL 2A - RESULTS
         lvl2a_results=gMod.winLoss(bonus)
-        #lv2a results
+
+        #although the skills evalulated differ, the prints are still determined if the character is activated or not
         if(lvl2a_results==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
             input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
@@ -214,38 +239,41 @@ while(leaveGame==False):
                 print("Panicking, ROUGE goes to the edge of the pit.\n"+playerName+": Hey, what are you-- "+Fore.RESET+"With a grand gesture, they throw the lighter to other side, as the fire extinguishes.\n"+playerName+": ROUGE! WHY DID YOU DO THAT?"+Fore.RED+"\nROUGE: I was thinking we could save the lighter for later..? Oh.. Yeah, that was not a smart idea, was it?"+Fore.RESET+"\nYou facepalm, having to work with the faint cave light. After adjusting to the darkness, you cross first. Your arms wave in the \nair helplessly, as your feet wobble forwards in hope of better footing. Eventually, you feel solid ground and call your partner over.\nYou see them pacing before their attempt, and every step feels infinite."+Fore.RED+"\nROUGE: Whew! That was not so bad! The lighter is here too! "+Fore.RESET+"\nThey grin and click the lighter, revealing the path once again.")
             else:
                 print("Curious, you observe SCOUT fiddle with the wall. "+Fore.CYAN+"\nSCOUT: It is not a wall... but rather a secret tunnel. "+Fore.RESET+"\nAlmost on queue, the stone wall slides open, and SCOUT closes up their backpack. In the tunnel, \nthere are odd structures, and with all the rumbling, it causes haste to your step. Understanding, your team jogs \ndown the tunnel to another \'wall\'. Within minutes, SCOUT breaks the mechanism, leading you to the other side.")
-        #ROUGE's crit win is logically impossible, since -2(PRI skill)+12(max on die)=10(win, not crit win)
-        #HENCE, only SCOUT's is available for crit win
+       
+        #Rouge's crit win is logically impossible, since -2(PRI skill)+12(max on die)=10(win, not crit win)
+        #hence, only Scout's story is available for crit win
         elif(lvl2a_results==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+Fore.RESET+line)
             input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
             print("Curious, you observe SCOUT fiddle with the wall. "+Fore.CYAN+"\nSCOUT: It is not a wall... but rather a secret tunnel. "+Fore.RESET+"\nAlmost on queue, the stone wall slides open, and SCOUT closes up their backpack. In the tunnel, \nthere are torches around. SCOUT lights the torches within the secret passageway, revealing a cobblestone shrine. \nThe both of you gasp, remembering the Yushin\'s tradition of remembering the departed. \nQuickly, you take photos and gently remove a papyrus from the wall."+Fore.CYAN+"\nSCOUT: What does it say,"+playerName+Fore.CYAN+"? "+Fore.RESET+"You quickly translate the characters.\n"+playerName+": \'Dearest\', I think it\'s a name, \'Ethikosh, we miss you dearly. May you rest \nin your art of passion.\' ...I think they built this place."+Fore.CYAN+"\nSCOUT: Amazing... Can we take it? "+Fore.RESET+"You smile and nod, placing the papyrus in their backpack. You glance at the shrine once more and take \nthe torch with you, before leaving the side room.")
 
         input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
-            
+        #-------
+
+        #ENDING OF LEVEL 2A
         print(breakLine+"Every step leads to more cramped spaces and traps. Your partner had a close call with a pressure plate and poison darts.\nThe deeper you go, the more rustling and clattering you hear from the darkness... It must be the wind, right?\nOn the bright side, there are less bodies and blood on the path, which means that the treasure awaits...")
-        #intro to lvl2b setting
         print(line+"Many kilometres later, there is a sunlit path. You look at each other and walk a little bit faster. The small pathways lead to a large, \nchiseled cave painted in gold and white. Even stranger, ores upon ores of luminous gemstones emulate sunlight, \neven growing grass and being a habitat to insects and rodents. You snap a picture but it fails to capture the moment.\n"+playerName+": Wow... This is amazing! And over there! "+Fore.RESET+"\nYou point towards marble stairs, leading to a large circular doorway... with a keyhole.\n"+playerName+": Oh, come on! "+Fore.RESET+"Stomping towards the door, you hear a click beneath your feet. \nRumble. Arm being pulled. Fallen down. You let your mind catch up.")
         
-        #specialized dialogue, player almost dying (lvl 2ab)
+        #specialized dialogue - 2b (player almost dies)
         if (gMod.RougeAccess().getRoleStatus()):
             print(Fore.RED+"\nROUGE: Glad I\'m not the only one with pressure plate problems! You almost got smashed by that rock, friend!"+Fore.RESET)
         else:
             print(Fore.CYAN+"\nSCOUT: ...please be careful. "+Fore.RESET+"They look at you with a silent worry.")
         
         input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+        #-----
 
-        #intro to lvl2b puzzle
+        #INTRO TO LEVEL 2B
         print(line+"You look ahead to see cobblestone flooring with a stalactite standing where you once stood.\n"+playerName+": Just like the poison darts... but why does this look-- OH! "+Fore.RESET+"\nQuickly, you scour your camera roll for... that one! \nYou wave over your partner, showing one of the murals from the entrance. The photo shows a painted version of the room with a\nred line, gesturing the way through the door is through the path. \n\nIn short, by following the path, the team will pass safely, or else...")
 
-        #specialized dialogue, lvl2b
+        #specialized dialogue - reaction to 2b
         if (gMod.RougeAccess().getRoleStatus()):
             print(Fore.RED+"ROUGE: So?? What are we waiting for? Let\'s go!"+Fore.RESET+" They look at the cobblestone floor and smile.\n"+Fore.RED+"ROUGE: This actually reminds me of a routine I did one time! Wa-hoo! Takes me back!"+Fore.RESET)
         else:
             print("SCOUT looks ahead with an unreadable expression.")        
-        
+
+        #LEVEL 2B - ROLL [DANCE/PHY] 
         rollAgain=True
-        #rolling for lv2b, similar as above
         while(rollAgain):
             if(gMod.RougeAccess().getRoleStatus()):
                 rollInput=input(breakLine+Fore.GREEN+"ROUGE\'s SPECIALITY [DANCE] IS IN EFFECT!\nROLL to support them![Input R]: ").upper()
@@ -261,19 +289,20 @@ while(leaveGame==False):
                 print("Please roll again!")
                 rollAgain=True
 
-        #adding bonus
+        #adding Rouge's DANCE skill bonus
         if(gMod.RougeAccess().getRoleStatus()==True):
             print(Fore.RED+"PARTNER\'S BONUS(DAN):"+Fore.RESET, gMod.RougeAccess().getSpecial())
             bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getSpecial())
+        
+        #adding Scout's PHY skill bonus
         elif(gMod.ScoutAccess().getRoleStatus()==True):
             print(Fore.CYAN+"PARTNER\'S BONUS(PHY):"+Fore.RESET, gMod.ScoutAccess().getPHY())
             bonus=gMod.traitBonus(diceResult,gMod.ScoutAccess().getPHY())
 
         print("YOU AND YOUR PARTNER ROLLED A", bonus)
 
-        #lv2b results
+        #LEVEL 2B - RESULTS
         lvl2b_results=gMod.winLoss(bonus)
-
         if(lvl2b_results==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
             input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
@@ -299,13 +328,13 @@ while(leaveGame==False):
         elif(lvl2b_results==3):
             print("You recieved: "+Fore.YELLOW+"a CRIT WIN(12 and above)!"+line)
             input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
-
-
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"ROUGE: Ready? "+Fore.RESET+"You nod, as they place their hand on your shoulder. ROUGE leans to the right, and you follow.\n You twirl onto the pressure plated \'dance floor,\' where you two waltz in a circle. No stalactites yet... \nThey let you go and jump over a cobblestone, waving you over. Confidently, you jump over with your feet pointed.\nThey give you space to land, as you both continue to twirl onwards. Your feet go left, right, and shuffle. \nHowever, they never cross. There are narrow cobblestones ahead, as ROUGE gestures you to point your toes. \nWith confidence, you mimic it easily. With a twirl and jump, your team left the dance floor. ROUGE\'s smile beams."+Fore.RED+"\nROUGE: That was amazing! Thank you for this dance! "+Fore.RESET+"You both bow dramatically, chuckling slightly.")
             else:
                 print("After memorizing the path, you and SCOUT begin. You both walk most of the way, until there are jumps involved. \nYou jump first, gesturing them to follow. They swallow their fear and jump with ease. \nYou can see a bit of uneasiness fade away, as the path goes left and right.\n"+playerName+": This is the narrow bit. Careful! "+Fore.RESET+"You begin to tip toe towards the other side. \nYou hear a click behind you, quickly saving your partner from a stalactite. \nThey nod, as you complete the challenge.")
         
+        input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
+        #------
 
         print(breakLine+"After catching their breath, your team walks up the stairs, waiting for the door to be opened... unless?\n"+playerName+": ...I think I misread the mural. "+Fore.RESET+"You notice the ident in the picture\'s mural. It must have been the key for the door."+Fore.MAGENTA+"\n???: You would be correct, nerd. "+Fore.RESET+"You turn to look but are greeted with a slam to the temple.\n\n... .... ..... ......\n\n"+playerName+": ... "+Fore.RESET+"You groan in pain, trying to adjust your vision. Your movement is restricted.")
 
@@ -315,14 +344,11 @@ while(leaveGame==False):
         else:
             print("You recognize SCOUT\'s navy hair and headband, but they feel incomplete without their huge backpack. \nYou look around to see the bandits that tied you both up.")
 
-        #intro for lvl 3
+        #LEVEL 3 INTRO
         print(Fore.LIGHTCYAN_EX+"Bandit with Key: Look who woke up!"+Fore.MAGENTA+"\nBandit with Weapon: Does it really matter right now? Once our team gets the treasure, they\'ll have all the time to \'wake up\'.\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Geez... That is way too threatening.\n"+Fore.RESET+"Surprisingly, they seem rather friendly. Perhaps you and your partner can convince to let you both go?")
         
-
-        #EDIT BELOW!!
+        #LEVEL 3 - ROLL [SOC]
         rollAgain=True
-
-        #rolling for lv2a, similar as above
         while(rollAgain):
             rollInput=input(line+Fore.GREEN+"ROLL for SOCIAL SKILLS![Input R]: ").upper()
             diceResult=gMod.dice(rollInput)
@@ -334,26 +360,21 @@ while(leaveGame==False):
                 print("Please roll again!")
                 rollAgain=True
 
-        #adding ROUGE: SOC bonus
+        #ADDING SKILL BONUS
         if(gMod.RougeAccess().getRoleStatus()==True):
             print(Fore.RED+"PARTNER\'S BONUS(SOC):"+Fore.RESET, gMod.RougeAccess().getSOC())
             bonus=gMod.traitBonus(diceResult,gMod.RougeAccess().getSOC())
-
-            #adding SCOUT: SOC bonus
         else:
             print(Fore.CYAN+"PARTNER\'S BONUS(SOC):"+Fore.RESET, gMod.ScoutAccess().getSOC())
             bonus=gMod.traitBonus(diceResult,gMod.ScoutAccess().getSOC())
 
         print("YOU AND YOUR PARTNER ROLLED A", bonus)
 
+        #LEVEL 3 - RESULTS
         lvl3_results=gMod.winLoss(bonus)
-
-        #lv 3results
         if(lvl3_results==0):
             print("You recieved: "+Fore.YELLOW+"a CRIT LOSS(3 and under)!"+line)
             input(Fore.GREEN+"Press the ENTER KEY to continue: "+Fore.RESET)
-
-
             if(gMod.RougeAccess().getRoleStatus()):
                 print(playerName+": Hey! Quit talking and help us out!"+Fore.MAGENTA+"\nBandit with Weapon: And why should we?\n"+Fore.RED+"ROUGE: What are you getting out of this?\n"+Fore.MAGENTA+"Bandit with Weapon: You know what? I am tired with your demands and questions! You just want to mess up our deal\nwith the market! They\'re paying some goooddd money for--\n"+Fore.RED+"ROUGE: Money, you say? I am something of a rich person myself, so if you let us go...?\n"+Fore.LIGHTCYAN_EX+"Bandit with Key: Oh my! Look at that crest on their ring! Bob! This is a heck of a--\n"+Fore.MAGENTA+"Bob(?): No, Domino! Resist the cash--\n"+Fore.LIGHTCYAN_EX+"Domino(?): Let me have the ring at least-- "+Fore.RESET+"Bob slaps Domino, as Domino begins to retaliate. \nThe verbal and physical fight begins to grow, as the key gets thrown your way. You inch your way towards \nthe key, using the edge to cut the ropes. When Domino and Bob finish arguing, make up, and leave: you both are free.")
             else:
@@ -384,11 +405,13 @@ while(leaveGame==False):
         
         input(Fore.GREEN+"\nPress the ENTER KEY for the finale: "+Fore.RESET)
         print(breakLine*2)
+        #----
 
-        #WIN ENDING, need at least 7 points to win
+        #WIN ENDING - Player needs at least 7 points(from variable score in Game.py) to win
         if(gMod.assessScore()>=7):
             print("After getting all the resources and your supplies back, you march in with the key. \nThe door slides open with a push, as bandits argue amongst each other.\n"+Fore.LIGHTBLUE_EX+"Bandit #1: Seriously? Paper and whatever this is?\n"+Fore.LIGHTMAGENTA_EX+"Bandit #2: You sure we\'ll still get paid? ...oh hello! "+Fore.RESET+"They wave to you, creating attention. "+Fore.LIGHTRED_EX+"\nLeader Bandit: Y\'know what? Forget it! We can\'t even carry this much freakin\' paper if we wanted to. \nYou, nerds, take it! Crew, let\'s go. "+Fore.RESET+"Everyone packs up and leaves the room, eyeing your team in the process.")
 
+            #specialized dialogue - bandits leaving
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"\nROUGE: Huh... They\'re strange."+Fore.RESET)
             else:
@@ -396,6 +419,7 @@ while(leaveGame==False):
         
             print("\nIn contrast to the rest of the cave, the whole place is marble and is almost ethereal.\nTall marble spires reach to the ceilings with an oculus that lights the whole room. \nUnderneath the light is a dry pool filled with debris of a decomposed lily. \nThe side aqueducts are dry and fill the room with an stale smell. \nMost interesting of all, the treasure is not gold or silver, but...\n"+playerName+": Look at this! ...Prophecies, ancient technology blueprints, languages, letters... It\'s the empire\'s knowledge!")
 
+            #specialized dialogue - treasure 
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"\nROUGE: So, when the myths said \'wealth of shining power,\' they meant metaphorically...\n"+Fore.RESET+"They look at some scrolls with military drawings.")
             else:
@@ -406,11 +430,11 @@ while(leaveGame==False):
 
             input(Fore.GREEN+"Press the ENTER KEY to return to MENU: "+Fore.RESET)
 
-
-        #LOSE ENDING
+        #LOSE ENDING - Player gets 6 or less points(from variable score in Game.py)
         else:
             print("After getting all the resources and your supplies back, you march in. Strangely, the door does not budge. \nWith every push, pull, and attempt: it does not seem to open. Pressing your ear to the door, you hear the bandits arguing with each other. \nThe yelling grows and grows but ends in an eerie silence and a smell of smoke... \nWait, smoke?")
-        
+            
+            #specialized dialogue - smoke reaction
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"\nROUGE: Umm... They didn\'t set anything on fire... right?")
             else:
@@ -418,6 +442,7 @@ while(leaveGame==False):
 
             print("Eventually, the door slides open. The bandits rush past your team, as you see the whole room is engulfed in flames.\n"+playerName+": NO!! "+Fore.RESET+"You start running towards the scene.")
 
+            #specialized dialogue - fire
             if(gMod.RougeAccess().getRoleStatus()):
                 print(Fore.RED+"\nROUGE: HEY! STOP IT! ...PLEASE DON\'T LEAVE ME HERE!"+Fore.RESET+" You hear them crying your name.")
             else:
@@ -428,16 +453,17 @@ while(leaveGame==False):
 
             input(Fore.GREEN+"Press the ENTER KEY to return to MENU: "+Fore.RESET)
 
-    #how to
+  #----------menu continuation---------
+    #HOW TO OPTION
     elif (menuAns=="H"):
         print(Fore.YELLOW+"\'Within the Yushin empire, there rests a treasure within the \'wealth of shining power / you may change the paths of rivers\'\'\n")
         print(Fore.GREEN+"\nHOW TO PLAY:\n1) PICK A PARTNER:"+Fore.RESET+" You will require assistance on your journey. Will you pick"+Fore.RED+" ROUGE --an adventurous aristocrat--"+Fore.RESET+" \nor "+Fore.CYAN+"SCOUT --a seasoned adventurer"+Fore.RESET+"? Note that they will have varying skills of Intellegence[INT], Physical Stamina[PHY],\nSocial Skills[SOC], and Primitive/Survival Skills[PRI]\n")
         print(Fore.GREEN+"2) ROLL THE DIE:"+Fore.RESET+" Along your journey, you will be prompted to roll a 12-sided die. What one rolls, determines their fate... \n")
-        print(Fore.GREEN+"3) OBSERVE THE OUTCOME:"+Fore.RESET+" Your roll and your partner\'s skills will determine your outcome in the upcoming challenges. The possible results go as follows: \n     Critical Loss: 3 or under\n     Loss: 4 to 6\n     Win:7 to 11\n     Critical Win: 12 or above\nYour team must have a WIN and/or CRITICAL WIN at least 3 times to succeed.\n\n"+Fore.GREEN+"4) HAVE FUN AND GOOD LUCK!")
+        print(Fore.GREEN+"3) OBSERVE THE OUTCOME:"+Fore.RESET+" Your roll and your partner\'s skills will determine your outcome in the upcoming challenges. The possible results go as follows: \n     Critical Loss: 3 or under\n     Loss: 4 to 6\n     Win:7 to 11\n     Critical Win: 12 or above\n\n"+Fore.GREEN+"4) HAVE FUN AND GOOD LUCK!")
         print(line+Fore.YELLOW+"\nWill you find the TREASURE? PLAY TO FIND OUT!"+Fore.RESET)
         input(Fore.RESET+"\n*FOR MORE INFO, READ THE DOCUMENTATION!\n"+Fore.GREEN+"PRESS ENTER TO RETURN TO THE MENU: ")
 
-    #partner info
+    #PARTNER INFO 
     elif (menuAns=="P"):
         print(Fore.YELLOW+"\'In treacherous ruins, it is a gift to have companion alongside one\'s side...\'\n")
         print(Fore.WHITE+"ROUGE:\n"+Fore.RED+"     BACKGROUND: Seeking adventure, ROUGE left their aristocratic lifestyle to become an adventure. Funded by their family fortune,\nthey travel to find their purpose in the world. A reckless but supportive ally along the journey!\n\n STRENGTHS: PHYSICAL, SOCIAL \n WEAKNESS: PRIMITIVE \n\n SPECIALTY SKILL: DANCE\n   Being upperclass, they can sway from to the beat (or no beat..?) from waltz to breakdance!")
@@ -445,12 +471,14 @@ while(leaveGame==False):
 
         input(Fore.RESET+"\n*FOR MORE INFO, READ THE DOCUMENTATION!\n"+Fore.GREEN+"PRESS ENTER TO RETURN TO THE MENU: ")
 
-    #exit
+    #LEAVE THE PROGRAM
     elif(menuAns=="E"):
         print(Fore.YELLOW+"THANK YOU FOR PLAYING! FAREWELL!")
         leaveGame=True
 
+    #If input is invalid
     else:
         print("PLEASE GIVE A VALID INPUT!\n\n")
     
+    #Divides different menu "screens" after input for clarity
     print(Fore.RESET+breakLine)

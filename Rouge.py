@@ -1,8 +1,8 @@
-"""ROLE 1: ROUGE- THE FREE SPIRIT. This file contains variables and related methods."""
+"""ROLE 1 module: ROUGE- THE ARISTOCRAT. This file contains variables and related methods."""
 class rouge():
+    #variables/attributes
     def __init__(self):
         self.isRouge=False
-        self.name="ROUGE"
         self.INTEL = 0
         self.PHY=1
         self.SOC=1
@@ -10,9 +10,6 @@ class rouge():
         self.DAN=2
 
     #Getter methods
-    def getName(self):
-        return self.name
-    
     def getRoleStatus(self):
         return self.isRouge
     
@@ -31,9 +28,10 @@ class rouge():
     def getSpecial(self):
         return self.DAN
 
-    #Setter methods
+    #Setter method, makes variable True for App.py to establish role is activated
     def selectRouge(self,choice):
         if(choice=="Y"):
             self.isRouge=True
+        #When the player replays the game    
         else:
             self.isRouge=False

@@ -1,8 +1,8 @@
-"""ROLE 2: SCOUT- THE HACKER. This file contains variables and related methods."""
+"""ROLE 2 module: SCOUT- THE HACKER. This file contains variables and related methods."""
 class scout():
+    #variables/attributes
     def __init__(self):
         self.isScout=False
-        self.name="SCOUT"
         self.INTEL = 1
         self.PHY=0
         self.SOC=-2
@@ -10,9 +10,6 @@ class scout():
         self.HACK=2
 
     #Getter methods
-    def getName(self):
-        return self.name
-    
     def getRoleStatus(self):
         return self.isScout
     
@@ -31,9 +28,10 @@ class scout():
     def getSpecial(self):
         return self.HACK
 
-    #Setter methods
+    #Setter method, makes variable True for App.py to establish role is activated
     def selectScout(self, choice):
         if(choice=="Y"):
             self.isScout=True
+        #When the player replays the game    
         else:
             self.isScout=False
